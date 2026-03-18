@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "pmpro-downloads/download",
+	"title": "PMPro Download",
+	"category": "pmpro",
+	"description": "Display a restricted file download for members.",
+	"keywords": [ "download", "file", "member", "paid memberships pro", "pmpro" ],
+	"attributes": {
+		"id": {
+			"type": "number",
+			"default": 0
+		},
+		"template": {
+			"type": "string",
+			"default": "link"
+		},
+		"label": {
+			"type": "string",
+			"default": "title"
+		}
+	},
+	"supports": {},
+	"example": {},
+	"textdomain": "pmpro-downloads",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"render": "file:./render.php"
+}

@@ -23,6 +23,54 @@ require_once PMPRO_DOWNLOADS_DIR . '/includes/templates.php';
 require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes.php';
 
 /**
+ * Register block types for the block editor.
+ *
+ * @since 0.3
+ */
+function pmpro_downloads_register_block_types() {
+	register_block_type( PMPRO_DOWNLOADS_DIR . '/blocks/build/download' );
+}
+add_action( 'init', 'pmpro_downloads_register_block_types' );
+
+/**
+ * Enqueue PMPro core and downloads frontend styles in the block editor iframe.
+ *
+ * These are the same CSS files loaded on the frontend, ensuring 1:1 rendering
+ * of the download templates in the editor preview.
+ *
+ * @since 0.3
+ */
+function pmpro_downloads_enqueue_block_styles() {
+	if ( defined( 'PMPRO_URL' ) && defined( 'PMPRO_VERSION' ) ) {
+		wp_enqueue_style(
+			'pmpro_frontend_base',
+			PMPRO_URL . '/css/frontend/base.css',
+			array(),
+			PMPRO_VERSION
+		);
+
+		// Load the same style variation as the frontend.
+		$variation = get_option( 'pmpro_style_variation', 'variation_1' );
+		if ( 'variation_minimal' !== $variation ) {
+			wp_enqueue_style(
+				'pmpro_frontend_' . esc_attr( $variation ),
+				PMPRO_URL . '/css/frontend/' . esc_attr( $variation ) . '.css',
+				array(),
+				PMPRO_VERSION
+			);
+		}
+	}
+
+	wp_enqueue_style(
+		'pmpro-downloads-frontend',
+		plugins_url( 'css/pmpro-downloads-frontend.css', __FILE__ ),
+		array(),
+		PMPRO_DOWNLOADS_VERSION
+	);
+}
+add_action( 'enqueue_block_assets', 'pmpro_downloads_enqueue_block_styles' );
+
+/**
  * Load text domain for translations.
  *
  * @since 0.1

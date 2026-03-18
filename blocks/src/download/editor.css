@@ -1,0 +1,10 @@
+/**
+ * Editor-only styles for the PMPro Download block.
+ *
+ * @since 0.3
+ */
+
+/* Prevent links in the SSR preview from navigating away from the editor. */
+.wp-block-pmpro-downloads-download a {
+	pointer-events: none;
+}

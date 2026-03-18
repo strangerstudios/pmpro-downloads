@@ -57,7 +57,7 @@ function pmpro_downloads_cpt() {
 		'publicly_queryable'  => false,
 		'rewrite'             => false,
 		'capability_type'     => 'page',
-		'show_in_rest'        => false,
+		'show_in_rest'        => true,
 	);
 
 	register_post_type( 'pmpro_download', $args );
