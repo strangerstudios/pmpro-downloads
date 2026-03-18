@@ -1,0 +1,92 @@
+<?php
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Shortcode to display a library of downloads.
+ *
+ * Usage: [pmpro_downloads template="card" layout="grid" columns="2"]
+ *
+ * @since 0.3
+ *
+ * @param array $atts Shortcode attributes.
+ * @return string Shortcode output.
+ */
+function pmpro_downloads_library_shortcode( $atts ) {
+	// Bail if PMPro is not active.
+	if ( ! function_exists( 'pmpro_has_membership_access' ) ) {
+		return '';
+	}
+
+	$atts = shortcode_atts( array(
+		'template' => 'link',
+		'layout'   => 'list',
+		'columns'  => 2,
+		'label'    => 'title',
+		'limit'    => -1,
+		'orderby'  => 'title',
+		'order'    => 'asc',
+	), $atts, 'pmpro_downloads' );
+
+	// Validate attributes.
+	$allowed_templates = array( 'link', 'card', 'button' );
+	$template          = in_array( $atts['template'], $allowed_templates, true ) ? $atts['template'] : 'link';
+
+	$allowed_layouts = array( 'list', 'grid' );
+	$layout          = in_array( $atts['layout'], $allowed_layouts, true ) ? $atts['layout'] : 'list';
+
+	$columns = in_array( intval( $atts['columns'] ), array( 2, 3 ), true ) ? intval( $atts['columns'] ) : 2;
+
+	$allowed_labels = array( 'title', 'filename' );
+	$label          = in_array( $atts['label'], $allowed_labels, true ) ? $atts['label'] : 'title';
+
+	$limit = intval( $atts['limit'] );
+
+	$allowed_orderby = array( 'title', 'date' );
+	$orderby         = in_array( $atts['orderby'], $allowed_orderby, true ) ? $atts['orderby'] : 'title';
+
+	$allowed_order = array( 'asc', 'desc' );
+	$order         = in_array( strtolower( $atts['order'] ), $allowed_order, true ) ? strtoupper( $atts['order'] ) : 'ASC';
+
+	// Query downloads.
+	$downloads = get_posts( array(
+		'post_type'      => 'pmpro_download',
+		'post_status'    => 'publish',
+		'posts_per_page' => $limit,
+		'orderby'        => $orderby,
+		'order'          => $order,
+	) );
+
+	if ( empty( $downloads ) ) {
+		return '';
+	}
+
+	// Render each download using the single download shortcode.
+	$items = '';
+	foreach ( $downloads as $download ) {
+		$items .= pmpro_downloads_shortcode( array(
+			'id'       => $download->ID,
+			'template' => $template,
+			'label'    => $label,
+		) );
+	}
+
+	if ( empty( $items ) ) {
+		return '';
+	}
+
+	// Build container CSS classes.
+	$classes = array(
+		'pmpro_downloads_library',
+		'pmpro_downloads_library-' . $layout,
+	);
+
+	if ( 'grid' === $layout ) {
+		$classes[] = 'pmpro_downloads_library-columns-' . $columns;
+	}
+
+	return '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . $items . '</div>';
+}
+add_shortcode( 'pmpro_downloads', 'pmpro_downloads_library_shortcode' );

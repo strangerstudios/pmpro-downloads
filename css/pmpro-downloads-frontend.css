@@ -102,3 +102,62 @@
 .pmpro_download_button {
 	margin: var(--pmpro--base--spacing--medium, 18px) 0;
 }
+
+/* ==========================================================================
+   Library Layout
+   ========================================================================== */
+
+.pmpro_downloads_library-list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--pmpro--base--spacing--small, 12px);
+}
+
+.pmpro_downloads_library-grid {
+	display: grid;
+	gap: var(--pmpro--base--spacing--medium, 18px);
+}
+
+.pmpro_downloads_library-columns-2 {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.pmpro_downloads_library-columns-3 {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+/* Reset individual template margins inside the library so the grid/flex gap controls spacing. */
+.pmpro_downloads_library .pmpro_download,
+.pmpro_downloads_library .pmpro_download_button,
+.pmpro_downloads_library .pmpro .pmpro_card {
+	margin: 0;
+}
+
+/* Grid: buttons stretch to fill cells and center content. */
+.pmpro_downloads_library-grid .pmpro_download_button {
+	display: flex;
+	flex-direction: column;
+}
+
+.pmpro_downloads_library-grid .pmpro_download_btn_cta {
+	flex: 1;
+	width: 100%;
+	justify-content: center;
+}
+
+/* Grid: cards stretch to equal row height and constrain to cell width. */
+.pmpro_downloads_library-grid .pmpro {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-width: 0;
+}
+
+.pmpro_downloads_library-grid .pmpro .pmpro_card {
+	flex: 1;
+}
+
+/* Push the card actions to the bottom when cards have different content heights. */
+.pmpro_downloads_library-grid .pmpro .pmpro_card_content {
+	flex: 1;
+}

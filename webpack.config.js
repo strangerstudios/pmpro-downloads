@@ -17,6 +17,13 @@ config.entry = {
     "download",
     "index.js"
   ),
+  "downloads/index": path.resolve(
+    process.cwd(),
+    "blocks",
+    "src",
+    "downloads",
+    "index.js"
+  ),
 };
 config.output = {
   filename: "[name].js",

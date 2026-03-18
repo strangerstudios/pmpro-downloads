@@ -21,6 +21,7 @@ define( 'PMPRO_DOWNLOADS_BASENAME', plugin_basename( __FILE__ ) );
 require_once PMPRO_DOWNLOADS_DIR . '/includes/post-types.php';
 require_once PMPRO_DOWNLOADS_DIR . '/includes/templates.php';
 require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes.php';
+require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes-library.php';
 
 /**
  * Register block types for the block editor.
@@ -29,6 +30,7 @@ require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes.php';
  */
 function pmpro_downloads_register_block_types() {
 	register_block_type( PMPRO_DOWNLOADS_DIR . '/blocks/build/download' );
+	register_block_type( PMPRO_DOWNLOADS_DIR . '/blocks/build/downloads' );
 }
 add_action( 'init', 'pmpro_downloads_register_block_types' );
 
