@@ -152,6 +152,7 @@ function pmpro_downloads_file_meta_box( $post ) {
 	$uploaded_filename = get_post_meta( $post->ID, '_pmpro_download_uploaded_filename', true );
 	$stored_filename   = get_post_meta( $post->ID, '_pmpro_download_stored_filename', true );
 	$file_type         = get_post_meta( $post->ID, '_pmpro_download_file_type', true );
+	$file_size         = get_post_meta( $post->ID, '_pmpro_download_file_size', true );
 	$upload_error      = get_post_meta( $post->ID, '_pmpro_download_upload_error', true );
 	$should_clear_error = ! empty( $upload_error );
 
@@ -185,6 +186,12 @@ function pmpro_downloads_file_meta_box( $post ) {
 				<p>
 					<strong><?php esc_html_e( 'Type:', 'pmpro-downloads' ); ?></strong>
 					<?php echo esc_html( $file_type ); ?>
+				</p>
+			<?php } ?>
+			<?php if ( ! empty( $file_size ) ) { ?>
+				<p>
+					<strong><?php esc_html_e( 'Size:', 'pmpro-downloads' ); ?></strong>
+					<?php echo esc_html( size_format( $file_size ) ); ?>
 				</p>
 			<?php } ?>
 			<p>
@@ -339,6 +346,7 @@ function pmpro_downloads_save_file( $post_id, $post, $update ) {
 		update_post_meta( $post_id, '_pmpro_download_stored_filename', $stored_filename );
 		update_post_meta( $post_id, '_pmpro_download_uploaded_filename', $uploaded_filename );
 		update_post_meta( $post_id, '_pmpro_download_file_type', $uploaded_file['type'] );
+		update_post_meta( $post_id, '_pmpro_download_file_size', filesize( $uploaded_file['file'] ) );
 	}
 }
 add_action( 'save_post_pmpro_download', 'pmpro_downloads_save_file', 20, 3 );
@@ -413,6 +421,7 @@ function pmpro_downloads_delete_file( $post_id ) {
 	delete_post_meta( $post_id, '_pmpro_download_stored_filename' );
 	delete_post_meta( $post_id, '_pmpro_download_uploaded_filename' );
 	delete_post_meta( $post_id, '_pmpro_download_file_type' );
+	delete_post_meta( $post_id, '_pmpro_download_file_size' );
 	delete_post_meta( $post_id, '_pmpro_download_upload_error' );
 }
 

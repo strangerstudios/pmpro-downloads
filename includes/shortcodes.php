@@ -60,6 +60,7 @@ function pmpro_downloads_shortcode( $atts ) {
 	$uploaded_filename = get_post_meta( $post_id, '_pmpro_download_uploaded_filename', true );
 	$stored_filename   = get_post_meta( $post_id, '_pmpro_download_stored_filename', true );
 	$file_type         = get_post_meta( $post_id, '_pmpro_download_file_type', true );
+	$file_size         = get_post_meta( $post_id, '_pmpro_download_file_size', true );
 	$file_extension    = pmpro_downloads_get_file_extension( ! empty( $stored_filename ) ? $stored_filename : $uploaded_filename );
 	$download_url      = $hasaccess ? pmpro_downloads_get_download_url( $post_id ) : '';
 	$no_access_url     = ! $hasaccess ? pmpro_downloads_get_no_access_url( $level_ids ) : '';
@@ -91,6 +92,7 @@ function pmpro_downloads_shortcode( $atts ) {
 		'uploaded_filename' => $uploaded_filename,
 		'stored_filename'   => $stored_filename,
 		'file_type'         => $file_type,
+		'file_size'         => $file_size,
 		'file_extension'    => $file_extension,
 		'download_url'      => $download_url,
 		'no_access_url'     => $no_access_url,

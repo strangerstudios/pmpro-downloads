@@ -35,7 +35,7 @@ function pmpro_downloads_get_template_path( $template ) {
  * @since 0.2
  *
  * @param string $template      The template name (link, card, button).
- * @param array  $template_vars Associative array of variables to extract into the template scope.
+ * @param array  $template_vars Associative array of variables available in the template as $template_vars.
  * @return string Rendered HTML output.
  */
 function pmpro_downloads_render_template( $template, $template_vars ) {
@@ -44,8 +44,6 @@ function pmpro_downloads_render_template( $template, $template_vars ) {
 	if ( empty( $template_path ) ) {
 		return '';
 	}
-
-	extract( $template_vars, EXTR_SKIP );
 
 	ob_start();
 	include $template_path;
