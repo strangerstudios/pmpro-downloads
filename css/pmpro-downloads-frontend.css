@@ -1,0 +1,104 @@
+/**
+ * Frontend styles for Paid Memberships Pro - Downloads Add On.
+ *
+ * Uses PMPro core classes where possible. Custom styles only for
+ * download-specific elements not covered by core.
+ *
+ * @since 0.2
+ */
+
+/* ==========================================================================
+   Shared
+   ========================================================================== */
+
+.pmpro_download svg,
+.pmpro_download_card svg,
+.pmpro_download_button svg {
+	vertical-align: middle;
+	flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Link Template
+   ========================================================================== */
+
+.pmpro_download {
+	margin: var(--pmpro--base--spacing--small, 12px) 0;
+}
+
+.pmpro_download_link {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.pmpro_download_meta {
+	color: var(--pmpro--color--border, #777);
+	font-size: 0.875em;
+}
+
+/* Link template: locked state. */
+.pmpro_download.pmpro_download-locked .pmpro_download_link {
+	color: var(--pmpro--color--border, #777);
+}
+
+/* ==========================================================================
+   Card Template
+   ========================================================================== */
+
+/* Inline icon + text in card title. */
+.pmpro_download_card .pmpro_card_title {
+	display: flex;
+	align-items: center;
+	gap: var(--pmpro--base--spacing--small, 12px);
+}
+
+/* Inline icon + text in card action button. */
+.pmpro_download_card .pmpro_card_actions .pmpro_btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+/* Card: locked state icon color. */
+.pmpro_download_card.pmpro_download-locked .pmpro_card_title svg {
+	color: var(--pmpro--color--border, #777);
+}
+
+
+/* ==========================================================================
+   Button Template
+   ========================================================================== */
+
+/* Two-line CTA button layout. */
+.pmpro_download_btn_cta {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--pmpro--base--spacing--small, 12px);
+	text-align: left;
+	text-decoration: none;
+}
+
+.pmpro_download_btn_cta:hover {
+	text-decoration: none;
+}
+
+.pmpro_download_btn_text {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.3;
+}
+
+.pmpro_download_btn_text strong {
+	font-size: 1em;
+}
+
+.pmpro_download_btn_text small {
+	font-size: 0.8125em;
+	font-weight: 400;
+	opacity: 0.85;
+}
+
+.pmpro_download_button {
+	margin: var(--pmpro--base--spacing--medium, 18px) 0;
+}
