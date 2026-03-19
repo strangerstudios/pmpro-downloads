@@ -4,7 +4,7 @@
  *
  * Displays a download as a simple text link with file metadata.
  *
- * @since 0.2
+ * @since 1.0
  *
  * @var array $template_vars Template variables passed from the shortcode.
  */

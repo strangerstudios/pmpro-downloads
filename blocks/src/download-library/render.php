@@ -2,7 +2,7 @@
 /**
  * Render the PMPro Download Library block on the frontend.
  *
- * @since 0.3
+ * @since 1.0
  *
  * @var array $attributes Block attributes.
  */

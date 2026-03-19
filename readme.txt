@@ -14,14 +14,20 @@ Create restricted file downloads for members.
 
 **This plugin is in active development and is not yet recommended for production use.**
 
-Create restricted file downloads for members using a custom post type and shortcode. Restrict access to downloads by membership level and display downloads using customizable templates.
+Create and manage restricted file downloads for your membership site. Upload files to a secure, non-public directory and control access based on membership level. Members see a download link; non-members see which level is required and a prompt to join.
+
+Each download is a custom post type with a title, description, and uploaded file. Restrict access using the standard PMPro "Require Membership" meta box. Files are stored in the PMPro restricted files directory, protected from direct access.
+
+Display downloads using three templates (link, card, or button) via shortcodes or Gutenberg blocks with live editor previews. The Download Library block and `[pmpro_download_library]` shortcode display multiple downloads in list or grid layouts.
 
 == Installation ==
 
-1. Upload the `pmpro-downloads` folder to the `/wp-content/plugins/` directory.
-1. Activate the plugin through the 'Plugins' menu in WordPress.
-1. Create new downloads under the "Downloads" menu in the WordPress admin.
-1. Use the `[pmpro_downloads]` shortcode to display downloads on any page.
+1. Upload the `pmpro-downloads` directory to the `/wp-content/plugins/` directory of your site.
+1. Activate the plugin through the `Plugins` menu in WordPress.
+1. Create new downloads under the Downloads menu in the WordPress admin.
+1. Upload a file and set membership restrictions on each download.
+1. Use the `[pmpro_download]` shortcode or the PMPro Download block to display a single download on any page.
+1. Use the `[pmpro_download_library]` shortcode or the PMPro Download Library block to display multiple downloads.
 
 == Frequently Asked Questions ==
 
@@ -34,4 +40,5 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at [https://www.paidmembershipspro.com](https://www.paidmembershipspro.com) for more documentation and our support forums.
 
 == Changelog ==
-TBD
+= 1.0 - TBD =
+* Initial release.

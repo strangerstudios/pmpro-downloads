@@ -26,7 +26,7 @@ require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes-library.php';
 /**
  * Register block types for the block editor.
  *
- * @since 0.3
+ * @since 1.0
  */
 function pmpro_downloads_register_block_types() {
 	register_block_type( PMPRO_DOWNLOADS_DIR . '/blocks/build/download' );
@@ -40,7 +40,7 @@ add_action( 'init', 'pmpro_downloads_register_block_types' );
  * These are the same CSS files loaded on the frontend, ensuring 1:1 rendering
  * of the download templates in the editor preview.
  *
- * @since 0.3
+ * @since 1.0
  */
 function pmpro_downloads_enqueue_block_styles() {
 	if ( defined( 'PMPRO_URL' ) && defined( 'PMPRO_VERSION' ) ) {
@@ -75,7 +75,7 @@ add_action( 'enqueue_block_assets', 'pmpro_downloads_enqueue_block_styles' );
 /**
  * Load text domain for translations.
  *
- * @since 0.1
+ * @since 1.0
  */
 function pmpro_downloads_load_textdomain() {
 	load_plugin_textdomain( 'pmpro-downloads', false, basename( dirname( __FILE__ ) ) . '/languages' );
@@ -85,7 +85,7 @@ add_action( 'plugins_loaded', 'pmpro_downloads_load_textdomain' );
 /**
  * Add documentation and support links to the plugin row meta.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param array  $links Array of existing plugin row meta links.
  * @param string $file  Path to the plugin file relative to the plugins directory.
@@ -106,7 +106,7 @@ add_filter( 'plugin_row_meta', 'pmpro_downloads_plugin_row_meta', 10, 2 );
 /**
  * Enqueue frontend styles for download templates.
  *
- * @since 0.2
+ * @since 1.0
  */
 function pmpro_downloads_enqueue_frontend_styles() {
 	if ( is_admin() ) {

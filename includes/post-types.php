@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Register Custom Post Type for Downloads.
  *
- * @since 0.1
+ * @since 1.0
  */
 function pmpro_downloads_cpt() {
 	$labels = array(
@@ -70,7 +70,7 @@ add_action( 'init', 'pmpro_downloads_cpt', 30 );
 /**
  * Add the pmpro_download CPT to the list of PMPro restrictable post types.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param array $post_types Array of post types that PMPro can restrict.
  * @return array Modified array of restrictable post types.
@@ -84,7 +84,7 @@ add_filter( 'pmpro_restrictable_post_types', 'pmpro_downloads_restrictable_post_
 /**
  * Force the classic editor for the pmpro_download post type.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param bool   $use_block_editor Whether to use the block editor.
  * @param string $post_type        The post type.
@@ -101,7 +101,7 @@ add_filter( 'use_block_editor_for_post_type', 'pmpro_downloads_use_block_editor'
 /**
  * Add enctype to the post edit form for file uploads.
  *
- * @since 0.1
+ * @since 1.0
  */
 function pmpro_downloads_post_edit_form_tag() {
 	if ( 'pmpro_download' === get_post_type() ) {
@@ -113,7 +113,7 @@ add_action( 'post_edit_form_tag', 'pmpro_downloads_post_edit_form_tag' );
 /**
  * Register the "Download File" meta box.
  *
- * @since 0.1
+ * @since 1.0
  */
 function pmpro_downloads_add_meta_boxes() {
 	add_meta_box(
@@ -132,7 +132,7 @@ add_action( 'add_meta_boxes', 'pmpro_downloads_add_meta_boxes' );
  *
  * Run late to ensure core/other plugins have already added default metaboxes.
  *
- * @since 0.1
+ * @since 1.0
  */
 function pmpro_downloads_remove_attributes_metabox() {
 	remove_meta_box( 'pageparentdiv', 'pmpro_download', 'side' );
@@ -142,7 +142,7 @@ add_action( 'add_meta_boxes_pmpro_download', 'pmpro_downloads_remove_attributes_
 /**
  * Render the "Download File" meta box.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param WP_Post $post The current post object.
  */
@@ -226,7 +226,7 @@ function pmpro_downloads_file_meta_box( $post ) {
 /**
  * Save an upload error message for display in the file metabox.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param int    $post_id The post ID.
  * @param string $message The upload error message.
@@ -243,7 +243,7 @@ function pmpro_downloads_set_upload_error( $post_id, $message ) {
 /**
  * Store/retrieve the current upload target path for restricted file uploads.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param string|null $path Optional. Path to store. Pass an empty string to clear.
  * @return string
@@ -261,7 +261,7 @@ function pmpro_downloads_upload_target_path( $path = null ) {
 /**
  * Save the download file on post save.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param int     $post_id The post ID.
  * @param WP_Post $post    The post object.
@@ -354,7 +354,7 @@ add_action( 'save_post_pmpro_download', 'pmpro_downloads_save_file', 20, 3 );
 /**
  * Filter the upload directory to point to the PMPro restricted files directory.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param array $uploads The upload directory data.
  * @return array Modified upload directory data.
@@ -388,7 +388,7 @@ function pmpro_downloads_custom_upload_dir( $uploads ) {
 /**
  * Delete a restricted file by filename.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param string $filename The stored filename.
  */
@@ -410,7 +410,7 @@ function pmpro_downloads_delete_file_by_filename( $filename ) {
 /**
  * Delete the file associated with a download post.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param int $post_id The post ID.
  */
@@ -428,7 +428,7 @@ function pmpro_downloads_delete_file( $post_id ) {
 /**
  * Delete the associated file when a download post is permanently deleted.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param int $post_id The post ID being deleted.
  */
@@ -447,7 +447,7 @@ add_action( 'before_delete_post', 'pmpro_downloads_before_delete_post' );
  * Hooks into PMPro's restricted files system to check membership access
  * for files in the pmpro-downloads directory.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param bool   $can_access Whether the user can access the file.
  * @param string $file_dir   Directory of the restricted file.
@@ -488,7 +488,7 @@ add_filter( 'pmpro_can_access_restricted_file', 'pmpro_downloads_can_access_rest
 /**
  * Get the download URL for a download post.
  *
- * @since 0.1
+ * @since 1.0
  *
  * @param int $post_id The download post ID.
  * @return string The download URL, or empty string if no file is attached.

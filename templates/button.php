@@ -4,7 +4,7 @@
  *
  * Displays a download as a prominent CTA button with two-line text.
  *
- * @since 0.2
+ * @since 1.0
  *
  * @var array $template_vars Template variables passed from the shortcode.
  */

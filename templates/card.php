@@ -5,7 +5,7 @@
  * Displays a download as a PMPro card with title, description,
  * and action button.
  *
- * @since 0.2
+ * @since 1.0
  *
  * @var array $template_vars Template variables passed from the shortcode.
  */

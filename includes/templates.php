@@ -2,7 +2,7 @@
 /**
  * Template system for displaying downloads on the frontend.
  *
- * @since 0.2
+ * @since 1.0
  */
 
 // Exit if accessed directly.
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Get the path to a template file.
  *
- * @since 0.2
+ * @since 1.0
  *
  * @param string $template The template name (link, card, button).
  * @return string Full path to the template file, or empty string if not found.
@@ -32,7 +32,7 @@ function pmpro_downloads_get_template_path( $template ) {
 /**
  * Render a template with the given variables.
  *
- * @since 0.2
+ * @since 1.0
  *
  * @param string $template      The template name (link, card, button).
  * @param array  $template_vars Associative array of variables available in the template as $template_vars.
@@ -53,7 +53,7 @@ function pmpro_downloads_render_template( $template, $template_vars ) {
 /**
  * Get the file extension from a filename.
  *
- * @since 0.2
+ * @since 1.0
  *
  * @param string $filename The filename.
  * @return string Lowercase file extension, or empty string.
@@ -68,7 +68,7 @@ function pmpro_downloads_get_file_extension( $filename ) {
 /**
  * Get a human-readable file type label from a file extension.
  *
- * @since 0.2
+ * @since 1.0
  *
  * @param string $file_extension Lowercase file extension.
  * @return string Human-readable label (e.g. "PDF", "Word Document").
@@ -114,7 +114,7 @@ function pmpro_downloads_get_file_type_label( $file_extension ) {
  *
  * Uses Feather icon style to match PMPro core.
  *
- * @since 0.2
+ * @since 1.0
  *
  * @param string $icon The icon name (lock, download, file-text, file).
  * @param int    $size Icon size in pixels. Default 24.
@@ -140,7 +140,7 @@ function pmpro_downloads_get_icon_svg( $icon, $size = 24 ) {
 /**
  * Get the file type icon SVG for a given file extension.
  *
- * @since 0.2
+ * @since 1.0
  *
  * @param string $file_extension Lowercase file extension.
  * @param int    $size           Icon size in pixels. Default 24.
@@ -162,7 +162,7 @@ function pmpro_downloads_get_file_icon( $file_extension, $size = 24 ) {
  * If only one membership level has access, returns the checkout URL for that level.
  * If multiple levels have access, returns the membership levels page URL.
  *
- * @since 0.2
+ * @since 1.0
  *
  * @param array $level_ids Array of membership level IDs that have access.
  * @return string The URL, or empty string if PMPro pages are not configured.

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Usage: [pmpro_download_library template="card" layout="grid" columns="2"]
  *
- * @since 0.3
+ * @since 1.0
  *
  * @param array $atts Shortcode attributes.
  * @return string Shortcode output.
