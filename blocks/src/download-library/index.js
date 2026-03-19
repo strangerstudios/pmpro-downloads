@@ -13,7 +13,7 @@ import Edit from './edit';
 import metadata from './block.json';
 
 /**
- * Register the PMPro Downloads (Library) block.
+ * Register the PMPro Download Library block.
  */
 registerBlockType( metadata.name, {
 	icon: {

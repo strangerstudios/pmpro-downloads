@@ -7,14 +7,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Shortcode to display a library of downloads.
  *
- * Usage: [pmpro_downloads template="card" layout="grid" columns="2"]
+ * Usage: [pmpro_download_library template="card" layout="grid" columns="2"]
  *
  * @since 0.3
  *
  * @param array $atts Shortcode attributes.
  * @return string Shortcode output.
  */
-function pmpro_downloads_library_shortcode( $atts ) {
+function pmpro_download_library_shortcode( $atts ) {
 	// Bail if PMPro is not active.
 	if ( ! function_exists( 'pmpro_has_membership_access' ) ) {
 		return '';
@@ -28,7 +28,7 @@ function pmpro_downloads_library_shortcode( $atts ) {
 		'limit'    => -1,
 		'orderby'  => 'title',
 		'order'    => 'asc',
-	), $atts, 'pmpro_downloads' );
+	), $atts, 'pmpro_download_library' );
 
 	// Validate attributes.
 	$allowed_templates = array( 'link', 'card', 'button' );
@@ -79,14 +79,14 @@ function pmpro_downloads_library_shortcode( $atts ) {
 
 	// Build container CSS classes.
 	$classes = array(
-		'pmpro_downloads_library',
-		'pmpro_downloads_library-' . $layout,
+		'pmpro_download_library',
+		'pmpro_download_library-' . $layout,
 	);
 
 	if ( 'grid' === $layout ) {
-		$classes[] = 'pmpro_downloads_library-columns-' . $columns;
+		$classes[] = 'pmpro_download_library-columns-' . $columns;
 	}
 
 	return '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . $items . '</div>';
 }
-add_shortcode( 'pmpro_downloads', 'pmpro_downloads_library_shortcode' );
+add_shortcode( 'pmpro_download_library', 'pmpro_download_library_shortcode' );

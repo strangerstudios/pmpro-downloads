@@ -17,11 +17,11 @@ config.entry = {
     "download",
     "index.js"
   ),
-  "downloads/index": path.resolve(
+  "download-library/index": path.resolve(
     process.cwd(),
     "blocks",
     "src",
-    "downloads",
+    "download-library",
     "index.js"
   ),
 };

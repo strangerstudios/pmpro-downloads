@@ -1,8 +1,8 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "pmpro-downloads/downloads",
-	"title": "PMPro Downloads",
+	"name": "pmpro-downloads/download-library",
+	"title": "PMPro Download Library",
 	"category": "pmpro",
 	"description": "Display a library of restricted file downloads for members.",
 	"keywords": [ "downloads", "library", "files", "list", "member", "paid memberships pro", "pmpro" ],

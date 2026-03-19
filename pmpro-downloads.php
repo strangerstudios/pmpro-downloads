@@ -30,7 +30,7 @@ require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes-library.php';
  */
 function pmpro_downloads_register_block_types() {
 	register_block_type( PMPRO_DOWNLOADS_DIR . '/blocks/build/download' );
-	register_block_type( PMPRO_DOWNLOADS_DIR . '/blocks/build/downloads' );
+	register_block_type( PMPRO_DOWNLOADS_DIR . '/blocks/build/download-library' );
 }
 add_action( 'init', 'pmpro_downloads_register_block_types' );
 

@@ -7,7 +7,7 @@ import { PanelBody, SelectControl, RangeControl } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 
 /**
- * Render the PMPro Downloads (Library) block in the editor.
+ * Render the PMPro Download Library block in the editor.
  *
  * @param {Object} props Block props.
  * @return {WPElement} Element to render.
@@ -106,7 +106,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			</InspectorControls>
 			<div { ...blockProps }>
 				<ServerSideRender
-					block="pmpro-downloads/downloads"
+					block="pmpro-downloads/download-library"
 					attributes={ attributes }
 				/>
 			</div>
