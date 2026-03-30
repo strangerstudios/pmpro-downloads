@@ -3,7 +3,7 @@
  * Plugin Name: Paid Memberships Pro - Downloads Add On
  * Plugin URI: https://www.paidmembershipspro.com/add-ons/pmpro-downloads/
  * Description: Create restricted file downloads for members.
- * Version: 0.0.1
+ * Version: 1.0
  * Author: Paid Memberships Pro
  * Author URI: https://www.paidmembershipspro.com
  * Text Domain: pmpro-downloads
@@ -13,7 +13,7 @@
 
 defined( 'ABSPATH' ) || die( 'File cannot be accessed directly' );
 
-define( 'PMPRO_DOWNLOADS_VERSION', '0.0.1' );
+define( 'PMPRO_DOWNLOADS_VERSION', '1.0' );
 define( 'PMPRO_DOWNLOADS_DIR', dirname( __FILE__ ) );
 define( 'PMPRO_DOWNLOADS_BASENAME', plugin_basename( __FILE__ ) );
 

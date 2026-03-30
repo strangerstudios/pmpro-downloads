@@ -5,8 +5,6 @@
 
 ### Welcome to the Paid Memberships Pro - Downloads Add On GitHub Repository
 
-**This plugin is in active development and is not yet recommended for production use.**
-
 Create restricted file downloads for members.
 
 For more information please visit [https://www.paidmembershipspro.com/add-ons/pmpro-downloads/](https://www.paidmembershipspro.com/add-ons/pmpro-downloads/)
