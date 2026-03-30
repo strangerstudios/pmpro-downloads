@@ -1,0 +1,595 @@
+# Copyright (C) 2026 Paid Memberships Pro
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Paid Memberships Pro - Downloads Add On 1.0\n"
+"Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
+"Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
+"Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-03-30T15:34:30+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: pmpro-downloads\n"
+
+#. Plugin Name of the plugin
+#: pmpro-downloads.php
+msgid "Paid Memberships Pro - Downloads Add On"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: pmpro-downloads.php
+msgid "https://www.paidmembershipspro.com/add-ons/pmpro-downloads/"
+msgstr ""
+
+#. Description of the plugin
+#: pmpro-downloads.php
+msgid "Create restricted file downloads for members."
+msgstr ""
+
+#. Author of the plugin
+#: pmpro-downloads.php
+msgid "Paid Memberships Pro"
+msgstr ""
+
+#. Author URI of the plugin
+#: pmpro-downloads.php
+msgid "https://www.paidmembershipspro.com"
+msgstr ""
+
+#: includes/admin.php:120
+msgid "Membership"
+msgstr ""
+
+#: includes/admin.php:121
+msgid "Shortcode"
+msgstr ""
+
+#: includes/admin.php:173
+msgid "Download Name"
+msgstr ""
+
+#: includes/post-types.php:14
+msgctxt "Post Type General Name"
+msgid "Downloads"
+msgstr ""
+
+#: includes/post-types.php:15
+msgctxt "Post Type Singular Name"
+msgid "Download"
+msgstr ""
+
+#: includes/post-types.php:16
+msgid "Downloads"
+msgstr ""
+
+#: includes/post-types.php:17
+#: includes/post-types.php:43
+#: templates/card.php:40
+#: blocks/build/download/index.js:1
+#: blocks/src/download/edit.js:74
+#: blocks/src/download/edit.js:90
+msgid "Download"
+msgstr ""
+
+#: includes/post-types.php:18
+msgid "Download Archives"
+msgstr ""
+
+#: includes/post-types.php:19
+msgid "Download Attributes"
+msgstr ""
+
+#: includes/post-types.php:20
+msgid "All Downloads"
+msgstr ""
+
+#: includes/post-types.php:21
+#: includes/post-types.php:22
+msgid "Add New Download"
+msgstr ""
+
+#: includes/post-types.php:23
+msgid "New Download"
+msgstr ""
+
+#: includes/post-types.php:24
+msgid "Edit Download"
+msgstr ""
+
+#: includes/post-types.php:25
+msgid "Update Download"
+msgstr ""
+
+#: includes/post-types.php:26
+msgid "View Download"
+msgstr ""
+
+#: includes/post-types.php:27
+msgid "View Downloads"
+msgstr ""
+
+#: includes/post-types.php:28
+msgid "Search Downloads"
+msgstr ""
+
+#: includes/post-types.php:29
+msgid "Download not found"
+msgstr ""
+
+#: includes/post-types.php:30
+msgid "Download not found in Trash"
+msgstr ""
+
+#: includes/post-types.php:31
+msgid "Featured Image"
+msgstr ""
+
+#: includes/post-types.php:32
+msgid "Set download featured image"
+msgstr ""
+
+#: includes/post-types.php:33
+msgid "Remove featured image"
+msgstr ""
+
+#: includes/post-types.php:34
+msgid "Use as download featured image"
+msgstr ""
+
+#: includes/post-types.php:35
+msgid "Insert into download"
+msgstr ""
+
+#: includes/post-types.php:36
+msgid "Uploaded to this download"
+msgstr ""
+
+#: includes/post-types.php:37
+msgid "Downloads list"
+msgstr ""
+
+#: includes/post-types.php:38
+msgid "Downloads list navigation"
+msgstr ""
+
+#: includes/post-types.php:39
+msgid "Filter Downloads list"
+msgstr ""
+
+#: includes/post-types.php:44
+msgid "Restricted file downloads for members."
+msgstr ""
+
+#: includes/post-types.php:233
+#: includes/post-types.php:310
+msgid "Invalid post type."
+msgstr ""
+
+#: includes/post-types.php:238
+msgid "No file was uploaded."
+msgstr ""
+
+#: includes/post-types.php:246
+msgid "Paid Memberships Pro is required to upload protected files."
+msgstr ""
+
+#: includes/post-types.php:255
+msgid "Unable to resolve PMPro restricted uploads directory."
+msgstr ""
+
+#: includes/post-types.php:267
+msgid "The file upload failed."
+msgstr ""
+
+#: includes/post-types.php:382
+msgid "Unable to determine PMPro restricted uploads directory."
+msgstr ""
+
+#: includes/post-types.php:387
+msgid "Unable to create PMPro restricted downloads directory."
+msgstr ""
+
+#: includes/templates.php:78
+msgid "PDF"
+msgstr ""
+
+#: includes/templates.php:79
+#: includes/templates.php:80
+msgid "Word Document"
+msgstr ""
+
+#: includes/templates.php:81
+#: includes/templates.php:82
+#: includes/templates.php:83
+msgid "Spreadsheet"
+msgstr ""
+
+#: includes/templates.php:84
+#: includes/templates.php:85
+msgid "Presentation"
+msgstr ""
+
+#: includes/templates.php:86
+#: includes/templates.php:87
+msgid "Archive"
+msgstr ""
+
+#: includes/templates.php:88
+#: includes/templates.php:89
+msgid "Audio"
+msgstr ""
+
+#: includes/templates.php:90
+#: includes/templates.php:91
+msgid "Video"
+msgstr ""
+
+#: includes/templates.php:92
+#: includes/templates.php:93
+#: includes/templates.php:94
+#: includes/templates.php:95
+#: includes/templates.php:96
+msgid "Image"
+msgstr ""
+
+#: includes/templates.php:97
+msgid "Text File"
+msgstr ""
+
+#: includes/templates.php:109
+msgid "File"
+msgstr ""
+
+#: pmpro-downloads.php:158
+msgid "View Documentation"
+msgstr ""
+
+#: pmpro-downloads.php:158
+msgid "Docs"
+msgstr ""
+
+#: pmpro-downloads.php:159
+msgid "Visit Customer Support Forum"
+msgstr ""
+
+#: pmpro-downloads.php:159
+msgid "Support"
+msgstr ""
+
+#: templates/button.php:24
+#: templates/button.php:36
+#, php-format
+msgid "Download %s"
+msgstr ""
+
+#. translators: %s: membership level name(s)
+#: templates/button.php:42
+#: templates/link.php:41
+#, php-format
+msgid "Requires %s membership"
+msgstr ""
+
+#. translators: %s: membership level name(s)
+#: templates/card.php:65
+#, php-format
+msgid "You must be a %s member to access this download."
+msgstr ""
+
+#. translators: %s: membership level name(s)
+#: templates/card.php:65
+#: templates/link.php:41
+msgid "or"
+msgstr ""
+
+#: templates/card.php:72
+msgid "Join Now"
+msgstr ""
+
+#: templates/card.php:74
+msgid "View Membership Levels"
+msgstr ""
+
+#: templates/card.php:84
+msgid "Already a member?"
+msgstr ""
+
+#: templates/card.php:84
+msgid "Log in here"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/build/download/index.js:1
+#: blocks/src/download-library/edit.js:21
+#: blocks/src/download/edit.js:50
+msgid "Link"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/build/download/index.js:1
+#: blocks/src/download-library/edit.js:22
+#: blocks/src/download/edit.js:51
+msgid "Card"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/build/download/index.js:1
+#: blocks/src/download-library/edit.js:23
+#: blocks/src/download/edit.js:52
+msgid "Button"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:28
+msgid "List"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:29
+msgid "Grid"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/build/download/index.js:1
+#: blocks/src/download-library/edit.js:34
+#: blocks/src/download-library/edit.js:40
+#: blocks/src/download/edit.js:57
+msgid "Title"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/build/download/index.js:1
+#: blocks/src/download-library/edit.js:35
+#: blocks/src/download/edit.js:58
+msgid "Filename"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:41
+msgid "Date"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:46
+msgid "Ascending"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:47
+msgid "Descending"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:53
+msgid "Display Settings"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/build/download/index.js:1
+#: blocks/src/download-library/edit.js:55
+#: blocks/src/download/edit.js:96
+msgid "Template"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:56
+msgid "Choose how each download is displayed."
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:62
+msgid "Layout"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:69
+msgid "Columns"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/build/download/index.js:1
+#: blocks/src/download-library/edit.js:77
+#: blocks/src/download/edit.js:103
+msgid "Label"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/build/download/index.js:1
+#: blocks/src/download-library/edit.js:78
+#: blocks/src/download/edit.js:104
+msgid "Display the download title or the filename."
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:84
+msgid "Query Settings"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:86
+msgid "Limit"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:87
+msgid "Number of downloads to show. Use -1 for all."
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:94
+msgid "Order By"
+msgstr ""
+
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:100
+msgid "Order"
+msgstr ""
+
+#: blocks/build/download/index.js:1
+#: blocks/src/download/edit.js:41
+msgid "— Select a Download —"
+msgstr ""
+
+#: blocks/build/download/index.js:1
+#: blocks/src/download/edit.js:88
+msgid "Download Settings"
+msgstr ""
+
+#: blocks/build/download/index.js:1
+#: blocks/src/download/edit.js:97
+msgid "Choose how the download is displayed."
+msgstr ""
+
+#: blocks/build/download/index.js:1
+#: blocks/src/download/edit.js:67
+msgid "PMPro Download"
+msgstr ""
+
+#: blocks/build/download/index.js:1
+#: blocks/src/download/edit.js:68
+msgid "Select a download to display."
+msgstr ""
+
+#: blocks/build/editor-plugin/index.js:1
+#: blocks/src/editor-plugin/index.js:37
+#: blocks/src/editor-plugin/index.js:41
+msgid "Description"
+msgstr ""
+
+#: blocks/build/editor-plugin/index.js:1
+#: blocks/src/editor-plugin/index.js:48
+msgid "An optional brief description that appears alongside the download in supported displays."
+msgstr ""
+
+#: blocks/build/file-manager/index.js:1
+#: blocks/src/file-manager/edit.js:144
+msgid "Upload failed. Please try again."
+msgstr ""
+
+#: blocks/build/file-manager/index.js:1
+#: blocks/src/file-manager/edit.js:195
+msgid "Uploading…"
+msgstr ""
+
+#: blocks/build/file-manager/index.js:1
+#: blocks/src/file-manager/edit.js:228
+msgid "Replace File"
+msgstr ""
+
+#: blocks/build/file-manager/index.js:1
+#: blocks/src/file-manager/edit.js:173
+msgid "Could not remove file. Please try again."
+msgstr ""
+
+#: blocks/build/file-manager/index.js:1
+#: blocks/src/file-manager/edit.js:231
+msgid "Remove"
+msgstr ""
+
+#: blocks/build/file-manager/index.js:1
+#: blocks/src/file-manager/edit.js:246
+msgid "No file uploaded yet."
+msgstr ""
+
+#: blocks/build/file-manager/index.js:1
+#: blocks/src/file-manager/edit.js:251
+msgid "Upload File"
+msgstr ""
+
+#: blocks/build/download-library/block.json
+#: blocks/src/download-library/block.json
+msgctxt "block title"
+msgid "PMPro Download Library"
+msgstr ""
+
+#: blocks/build/download-library/block.json
+#: blocks/src/download-library/block.json
+msgctxt "block description"
+msgid "Display a library of restricted file downloads for members."
+msgstr ""
+
+#: blocks/build/download-library/block.json
+#: blocks/src/download-library/block.json
+msgctxt "block keyword"
+msgid "downloads"
+msgstr ""
+
+#: blocks/build/download-library/block.json
+#: blocks/src/download-library/block.json
+msgctxt "block keyword"
+msgid "library"
+msgstr ""
+
+#: blocks/build/download-library/block.json
+#: blocks/src/download-library/block.json
+msgctxt "block keyword"
+msgid "files"
+msgstr ""
+
+#: blocks/build/download-library/block.json
+#: blocks/src/download-library/block.json
+msgctxt "block keyword"
+msgid "list"
+msgstr ""
+
+#: blocks/build/download-library/block.json
+#: blocks/build/download/block.json
+#: blocks/src/download-library/block.json
+#: blocks/src/download/block.json
+msgctxt "block keyword"
+msgid "member"
+msgstr ""
+
+#: blocks/build/download-library/block.json
+#: blocks/build/download/block.json
+#: blocks/src/download-library/block.json
+#: blocks/src/download/block.json
+msgctxt "block keyword"
+msgid "paid memberships pro"
+msgstr ""
+
+#: blocks/build/download-library/block.json
+#: blocks/build/download/block.json
+#: blocks/src/download-library/block.json
+#: blocks/src/download/block.json
+msgctxt "block keyword"
+msgid "pmpro"
+msgstr ""
+
+#: blocks/build/download/block.json
+#: blocks/src/download/block.json
+msgctxt "block title"
+msgid "PMPro Download"
+msgstr ""
+
+#: blocks/build/download/block.json
+#: blocks/src/download/block.json
+msgctxt "block description"
+msgid "Display a restricted file download for members."
+msgstr ""
+
+#: blocks/build/download/block.json
+#: blocks/src/download/block.json
+msgctxt "block keyword"
+msgid "download"
+msgstr ""
+
+#: blocks/build/download/block.json
+#: blocks/src/download/block.json
+msgctxt "block keyword"
+msgid "file"
+msgstr ""
+
+#: blocks/build/file-manager/block.json
+#: blocks/src/file-manager/block.json
+msgctxt "block title"
+msgid "Download File"
+msgstr ""
+
+#: blocks/build/file-manager/block.json
+#: blocks/src/file-manager/block.json
+msgctxt "block description"
+msgid "Manage the protected file attached to a PMPro Download."
+msgstr ""
