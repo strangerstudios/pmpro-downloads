@@ -50,14 +50,17 @@ function pmpro_download_library_shortcode( $atts ) {
 	$allowed_order = array( 'asc', 'desc' );
 	$order         = in_array( strtolower( $atts['order'] ), $allowed_order, true ) ? strtoupper( $atts['order'] ) : 'ASC';
 
-	// Query downloads.
-	$downloads = get_posts( array(
+	// Query downloads. Uses WP_Query so that PMPro's pmpro_search_filter
+	// can exclude restricted downloads when "Filter searches and archives" is enabled.
+	$query = new WP_Query( array(
 		'post_type'      => 'pmpro_download',
 		'post_status'    => 'publish',
 		'posts_per_page' => $limit,
 		'orderby'        => $orderby,
 		'order'          => $order,
 	) );
+
+	$downloads = $query->posts;
 
 	if ( empty( $downloads ) ) {
 		return '';
