@@ -24,6 +24,20 @@ config.entry = {
     "download-library",
     "index.js"
   ),
+  "file-manager/index": path.resolve(
+    process.cwd(),
+    "blocks",
+    "src",
+    "file-manager",
+    "index.js"
+  ),
+  "editor-plugin/index": path.resolve(
+    process.cwd(),
+    "blocks",
+    "src",
+    "editor-plugin",
+    "index.js"
+  ),
 };
 config.output = {
   filename: "[name].js",
