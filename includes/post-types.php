@@ -330,6 +330,23 @@ function pmpro_downloads_restrictable_post_types( $post_types ) {
 add_filter( 'pmpro_restrictable_post_types', 'pmpro_downloads_restrictable_post_types' );
 
 /**
+ * Add pmpro_download to the post types filtered by "Filter searches and archives".
+ *
+ * When the pmpro_filterqueries setting is enabled, this ensures that restricted
+ * downloads are excluded from queries (including the download library).
+ *
+ * @since 1.0
+ *
+ * @param array $post_types Post types to filter.
+ * @return array
+ */
+function pmpro_downloads_search_filter_post_types( $post_types ) {
+	$post_types[] = 'pmpro_download';
+	return array_unique( $post_types );
+}
+add_filter( 'pmpro_search_filter_post_types', 'pmpro_downloads_search_filter_post_types' );
+
+/**
  * Store/retrieve the current upload target path for restricted file uploads.
  *
  * @since 1.0
