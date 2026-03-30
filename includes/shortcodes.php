@@ -80,8 +80,9 @@ function pmpro_downloads_shortcode( $atts ) {
 	// Display name based on label attribute.
 	$display_name = ( 'filename' === $label ) ? $uploaded_filename : $post_title;
 
-	// Get formatted description from post content.
-	$description = ! empty( $download->post_content ) ? wpautop( $download->post_content ) : '';
+	// Get formatted description from post meta.
+	$raw_description = get_post_meta( $post_id, '_pmpro_download_description', true );
+	$description     = ! empty( $raw_description ) ? wpautop( wp_kses_post( $raw_description ) ) : '';
 
 	// Build template variables.
 	$template_vars = array(

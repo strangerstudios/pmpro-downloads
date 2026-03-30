@@ -23,6 +23,10 @@ require_once PMPRO_DOWNLOADS_DIR . '/includes/templates.php';
 require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes.php';
 require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes-library.php';
 
+if ( is_admin() ) {
+	require_once PMPRO_DOWNLOADS_DIR . '/includes/admin.php';
+}
+
 /**
  * Register block types for the block editor.
  *
@@ -31,8 +35,65 @@ require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes-library.php';
 function pmpro_downloads_register_block_types() {
 	register_block_type( PMPRO_DOWNLOADS_DIR . '/blocks/build/download' );
 	register_block_type( PMPRO_DOWNLOADS_DIR . '/blocks/build/download-library' );
+	register_block_type( PMPRO_DOWNLOADS_DIR . '/blocks/build/file-manager' );
 }
 add_action( 'init', 'pmpro_downloads_register_block_types' );
+
+/**
+ * Enqueue the editor plugin script for the pmpro_download CPT edit screen.
+ *
+ * Registers the sidebar panels (file upload + description) for the block editor.
+ *
+ * @since 1.0
+ */
+function pmpro_downloads_enqueue_editor_plugin() {
+	$screen = get_current_screen();
+	if ( ! $screen || 'pmpro_download' !== $screen->post_type ) {
+		return;
+	}
+
+	$asset_file = PMPRO_DOWNLOADS_DIR . '/blocks/build/editor-plugin/index.asset.php';
+	if ( ! file_exists( $asset_file ) ) {
+		return;
+	}
+
+	$asset = include $asset_file;
+
+	wp_enqueue_script(
+		'pmpro-downloads-editor-plugin',
+		plugins_url( 'blocks/build/editor-plugin/index.js', __FILE__ ),
+		$asset['dependencies'],
+		$asset['version'],
+		true
+	);
+}
+add_action( 'enqueue_block_editor_assets', 'pmpro_downloads_enqueue_editor_plugin' );
+
+/**
+ * Set the block editor canvas background to PMPro light blue for download posts.
+ *
+ * Uses block_editor_settings_all to inject CSS directly into the editor iframe,
+ * scoped to pmpro_download posts only.
+ *
+ * @since 1.0
+ *
+ * @param array                   $settings Editor settings.
+ * @param WP_Block_Editor_Context $context  Editor context.
+ * @return array
+ */
+function pmpro_downloads_editor_canvas_styles( $settings, $context ) {
+	$post = isset( $context->post ) ? $context->post : null;
+	if ( ! $post || 'pmpro_download' !== $post->post_type ) {
+		return $settings;
+	}
+
+	$settings['styles'][] = array(
+		'css' => 'body { background-color: var(--pmpro--color--blue-lightest, #EEF5FB); }',
+	);
+
+	return $settings;
+}
+add_filter( 'block_editor_settings_all', 'pmpro_downloads_editor_canvas_styles', 10, 2 );
 
 /**
  * Enqueue PMPro core and downloads frontend styles in the block editor iframe.

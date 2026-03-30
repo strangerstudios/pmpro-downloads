@@ -15,22 +15,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( $template_vars['has_access'] ) : ?>
-	<div class="pmpro_download">
-		<a href="<?php echo esc_url( $template_vars['download_url'] ); ?>" class="pmpro_download_link">
-			<?php echo pmpro_downloads_get_file_icon( $template_vars['file_extension'], 16 ); ?>
-			<?php echo esc_html( $template_vars['display_name'] ); ?>
+	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro pmpro_download pmpro_download-link' ) ); ?>">
+		<a href="<?php echo esc_url( $template_vars['download_url'] ); ?>">
+			<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-icon' ) ); ?>">
+				<?php echo pmpro_downloads_get_file_icon( $template_vars['file_extension'], 16 ); ?>
+			</span>
+			<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-title' ) ); ?>">
+				<?php echo esc_html( $template_vars['display_name'] ); ?>
+			</span>
 		</a>
 	</div>
 <?php else : ?>
-	<div class="pmpro_download pmpro_download-locked">
-		<a href="<?php echo esc_url( $template_vars['no_access_url'] ); ?>" class="pmpro_download_link">
-			<?php echo pmpro_downloads_get_icon_svg( 'lock', 16 ); ?>
-			<?php echo esc_html( $template_vars['display_name'] ); ?>
+	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro pmpro_download pmpro_download-link pmpro_download-locked' ) ); ?>">
+		<a href="<?php echo esc_url( $template_vars['no_access_url'] ); ?>">
+			<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-icon' ) ); ?>">
+				<?php echo pmpro_downloads_get_icon_svg( 'lock', 16 ); ?>
+			</span>
+			<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-title' ) ); ?>">
+				<?php echo esc_html( $template_vars['display_name'] ); ?>
+			</span>
 		</a>
-		<span class="pmpro_download_meta">
+		<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-levels' ) ); ?>">
 			<?php
 			/* translators: %s: membership level name(s) */
-			printf( esc_html__( 'Requires %s membership', 'pmpro-downloads' ), esc_html( pmpro_implodeToEnglish( $template_vars['level_names'], 'or' ) ) );
+			printf( esc_html__( 'Requires %s membership', 'pmpro-downloads' ), esc_html( pmpro_implodeToEnglish( $template_vars['level_names'], __( 'or', 'pmpro-downloads' ) ) ) );
 			?>
 		</span>
 	</div>

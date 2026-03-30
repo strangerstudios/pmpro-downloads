@@ -43,9 +43,9 @@ function pmpro_downloads_cpt() {
 		'label'               => esc_html__( 'Download', 'pmpro-downloads' ),
 		'description'         => esc_html__( 'Restricted file downloads for members.', 'pmpro-downloads' ),
 		'labels'              => $labels,
-		'supports'            => array( 'title', 'editor' ),
+		'supports'            => array( 'title', 'editor', 'custom-fields' ),
 		'hierarchical'        => false,
-		'public'              => true,
+		'public'              => false,
 		'menu_icon'           => 'dashicons-download',
 		'show_ui'             => true,
 		'show_in_menu'        => true,
@@ -58,14 +58,262 @@ function pmpro_downloads_cpt() {
 		'rewrite'             => false,
 		'capability_type'     => 'page',
 		'show_in_rest'        => true,
+		'template'            => array(
+			array( 'pmpro-downloads/file-manager', array() ),
+		),
+		'template_lock'       => 'all',
 	);
 
 	register_post_type( 'pmpro_download', $args );
 
-	// Ensure page attributes UI is not available for downloads.
+	// Prevent themes/plugins from adding irrelevant UI to this CPT.
+	remove_post_type_support( 'pmpro_download', 'thumbnail' );
 	remove_post_type_support( 'pmpro_download', 'page-attributes' );
 }
 add_action( 'init', 'pmpro_downloads_cpt', 30 );
+
+/**
+ * Register post meta fields for downloads.
+ *
+ * @since 1.0
+ */
+function pmpro_downloads_register_meta() {
+	// Publicly readable meta (exposed via REST for the block editor).
+	register_post_meta( 'pmpro_download', '_pmpro_download_uploaded_filename', array(
+		'show_in_rest'      => true,
+		'single'            => true,
+		'type'              => 'string',
+		'default'           => '',
+		'auth_callback'     => function() {
+			return current_user_can( 'edit_posts' );
+		},
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+
+	register_post_meta( 'pmpro_download', '_pmpro_download_file_type', array(
+		'show_in_rest'      => true,
+		'single'            => true,
+		'type'              => 'string',
+		'default'           => '',
+		'auth_callback'     => function() {
+			return current_user_can( 'edit_posts' );
+		},
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+
+	register_post_meta( 'pmpro_download', '_pmpro_download_file_size', array(
+		'show_in_rest'  => true,
+		'single'        => true,
+		'type'          => 'integer',
+		'default'       => 0,
+		'auth_callback' => function() {
+			return current_user_can( 'edit_posts' );
+		},
+	) );
+
+	register_post_meta( 'pmpro_download', '_pmpro_download_description', array(
+		'show_in_rest'      => true,
+		'single'            => true,
+		'type'              => 'string',
+		'default'           => '',
+		'auth_callback'     => function() {
+			return current_user_can( 'edit_posts' );
+		},
+		'sanitize_callback' => 'sanitize_textarea_field',
+	) );
+
+	// Internal meta — not exposed via REST.
+	register_post_meta( 'pmpro_download', '_pmpro_download_stored_filename', array(
+		'show_in_rest'      => false,
+		'single'            => true,
+		'type'              => 'string',
+		'default'           => '',
+		'sanitize_callback' => 'sanitize_file_name',
+	) );
+
+	register_post_meta( 'pmpro_download', '_pmpro_download_upload_error', array(
+		'show_in_rest'      => false,
+		'single'            => true,
+		'type'              => 'string',
+		'default'           => '',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+}
+add_action( 'init', 'pmpro_downloads_register_meta' );
+
+/**
+ * Register a computed REST field that returns the download URL for the current user.
+ *
+ * Returns an empty string if the user does not have membership access,
+ * so the block editor can conditionally show a "View File" link.
+ *
+ * @since 1.0
+ */
+function pmpro_downloads_register_rest_fields() {
+	register_rest_field( 'pmpro_download', 'pmpro_download_url', array(
+		'get_callback' => function( $post ) {
+			$post_id = $post['id'];
+			if ( ! function_exists( 'pmpro_has_membership_access' ) ) {
+				return '';
+			}
+			$access     = pmpro_has_membership_access( $post_id, null, true );
+			$has_access = is_array( $access ) ? $access[0] : (bool) $access;
+			if ( ! $has_access ) {
+				return '';
+			}
+			return pmpro_downloads_get_download_url( $post_id );
+		},
+		'update_callback' => null,
+		'schema'          => array(
+			'type'        => 'string',
+			'description' => 'Download URL for the current user, or empty if access is denied.',
+			'context'     => array( 'edit' ),
+		),
+	) );
+}
+add_action( 'rest_api_init', 'pmpro_downloads_register_rest_fields' );
+
+/**
+ * Register REST API routes for file management.
+ *
+ * @since 1.0
+ */
+function pmpro_downloads_register_rest_routes() {
+	register_rest_route(
+		'pmpro-downloads/v1',
+		'/upload/(?P<id>\d+)',
+		array(
+			array(
+				'methods'             => 'POST',
+				'callback'            => 'pmpro_downloads_rest_upload_file',
+				'permission_callback' => function( $request ) {
+					return current_user_can( 'edit_post', (int) $request['id'] );
+				},
+				'args'                => array(
+					'id' => array(
+						'required'          => true,
+						'validate_callback' => function( $param ) {
+							return is_numeric( $param ) && intval( $param ) > 0;
+						},
+					),
+				),
+			),
+			array(
+				'methods'             => 'DELETE',
+				'callback'            => 'pmpro_downloads_rest_delete_file',
+				'permission_callback' => function( $request ) {
+					return current_user_can( 'edit_post', (int) $request['id'] );
+				},
+				'args'                => array(
+					'id' => array(
+						'required'          => true,
+						'validate_callback' => function( $param ) {
+							return is_numeric( $param ) && intval( $param ) > 0;
+						},
+					),
+				),
+			),
+		)
+	);
+}
+add_action( 'rest_api_init', 'pmpro_downloads_register_rest_routes' );
+
+/**
+ * REST API callback: upload a file for a download post.
+ *
+ * @since 1.0
+ *
+ * @param WP_REST_Request $request The REST request.
+ * @return WP_REST_Response|WP_Error
+ */
+function pmpro_downloads_rest_upload_file( WP_REST_Request $request ) {
+	$post_id = intval( $request['id'] );
+
+	if ( 'pmpro_download' !== get_post_type( $post_id ) ) {
+		return new WP_Error( 'invalid_post_type', __( 'Invalid post type.', 'pmpro-downloads' ), array( 'status' => 400 ) );
+	}
+
+	$files = $request->get_file_params();
+	if ( empty( $files['file'] ) || empty( $files['file']['name'] ) ) {
+		return new WP_Error( 'no_file', __( 'No file was uploaded.', 'pmpro-downloads' ), array( 'status' => 400 ) );
+	}
+
+	if ( ! function_exists( 'wp_handle_upload' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+	}
+
+	if ( ! function_exists( 'pmpro_get_restricted_file_path' ) ) {
+		return new WP_Error( 'pmpro_missing', __( 'Paid Memberships Pro is required to upload protected files.', 'pmpro-downloads' ), array( 'status' => 500 ) );
+	}
+
+	if ( function_exists( 'pmpro_set_up_restricted_files_directory' ) ) {
+		pmpro_set_up_restricted_files_directory();
+	}
+
+	$restricted_path = pmpro_get_restricted_file_path( 'pmpro-downloads' );
+	if ( empty( $restricted_path ) ) {
+		return new WP_Error( 'upload_dir_error', __( 'Unable to resolve PMPro restricted uploads directory.', 'pmpro-downloads' ), array( 'status' => 500 ) );
+	}
+
+	pmpro_downloads_upload_target_path( $restricted_path );
+	add_filter( 'upload_dir', 'pmpro_downloads_custom_upload_dir' );
+
+	$uploaded_file = wp_handle_upload( $files['file'], array( 'test_form' => false ) );
+
+	remove_filter( 'upload_dir', 'pmpro_downloads_custom_upload_dir' );
+	pmpro_downloads_upload_target_path( '' );
+
+	if ( ! empty( $uploaded_file['error'] ) || empty( $uploaded_file['file'] ) ) {
+		$error_message = ! empty( $uploaded_file['error'] ) ? $uploaded_file['error'] : __( 'The file upload failed.', 'pmpro-downloads' );
+		return new WP_Error( 'upload_error', $error_message, array( 'status' => 500 ) );
+	}
+
+	// Delete old file only after a successful upload.
+	$old_stored_filename = get_post_meta( $post_id, '_pmpro_download_stored_filename', true );
+	if ( ! empty( $old_stored_filename ) ) {
+		pmpro_downloads_delete_file_by_filename( $old_stored_filename );
+	}
+
+	$stored_filename   = basename( $uploaded_file['file'] );
+	$uploaded_filename = sanitize_text_field( wp_basename( wp_unslash( $files['file']['name'] ) ) );
+	if ( empty( $uploaded_filename ) ) {
+		$uploaded_filename = $stored_filename;
+	}
+
+	$file_type = $uploaded_file['type'];
+	$file_size = filesize( $uploaded_file['file'] );
+
+	update_post_meta( $post_id, '_pmpro_download_stored_filename', $stored_filename );
+	update_post_meta( $post_id, '_pmpro_download_uploaded_filename', $uploaded_filename );
+	update_post_meta( $post_id, '_pmpro_download_file_type', $file_type );
+	update_post_meta( $post_id, '_pmpro_download_file_size', $file_size );
+
+	return rest_ensure_response( array(
+		'uploaded_filename' => $uploaded_filename,
+		'file_type'         => $file_type,
+		'file_size'         => $file_size,
+	) );
+}
+
+/**
+ * REST API callback: delete the file for a download post.
+ *
+ * @since 1.0
+ *
+ * @param WP_REST_Request $request The REST request.
+ * @return WP_REST_Response|WP_Error
+ */
+function pmpro_downloads_rest_delete_file( WP_REST_Request $request ) {
+	$post_id = intval( $request['id'] );
+
+	if ( 'pmpro_download' !== get_post_type( $post_id ) ) {
+		return new WP_Error( 'invalid_post_type', __( 'Invalid post type.', 'pmpro-downloads' ), array( 'status' => 400 ) );
+	}
+
+	pmpro_downloads_delete_file( $post_id );
+
+	return rest_ensure_response( array( 'success' => true ) );
+}
 
 /**
  * Add the pmpro_download CPT to the list of PMPro restrictable post types.
@@ -80,165 +328,6 @@ function pmpro_downloads_restrictable_post_types( $post_types ) {
 	return array_unique( $post_types );
 }
 add_filter( 'pmpro_restrictable_post_types', 'pmpro_downloads_restrictable_post_types' );
-
-/**
- * Force the classic editor for the pmpro_download post type.
- *
- * @since 1.0
- *
- * @param bool   $use_block_editor Whether to use the block editor.
- * @param string $post_type        The post type.
- * @return bool
- */
-function pmpro_downloads_use_block_editor( $use_block_editor, $post_type ) {
-	if ( 'pmpro_download' === $post_type ) {
-		return false;
-	}
-	return $use_block_editor;
-}
-add_filter( 'use_block_editor_for_post_type', 'pmpro_downloads_use_block_editor', 10, 2 );
-
-/**
- * Add enctype to the post edit form for file uploads.
- *
- * @since 1.0
- */
-function pmpro_downloads_post_edit_form_tag() {
-	if ( 'pmpro_download' === get_post_type() ) {
-		echo ' enctype="multipart/form-data"';
-	}
-}
-add_action( 'post_edit_form_tag', 'pmpro_downloads_post_edit_form_tag' );
-
-/**
- * Register the "Download File" meta box.
- *
- * @since 1.0
- */
-function pmpro_downloads_add_meta_boxes() {
-	add_meta_box(
-		'pmpro_downloads_file',
-		esc_html__( 'Protected Download File', 'pmpro-downloads' ),
-		'pmpro_downloads_file_meta_box',
-		'pmpro_download',
-		'normal',
-		'high'
-	);
-}
-add_action( 'add_meta_boxes', 'pmpro_downloads_add_meta_boxes' );
-
-/**
- * Remove the attributes metabox for downloads.
- *
- * Run late to ensure core/other plugins have already added default metaboxes.
- *
- * @since 1.0
- */
-function pmpro_downloads_remove_attributes_metabox() {
-	remove_meta_box( 'pageparentdiv', 'pmpro_download', 'side' );
-}
-add_action( 'add_meta_boxes_pmpro_download', 'pmpro_downloads_remove_attributes_metabox', 100 );
-
-/**
- * Render the "Download File" meta box.
- *
- * @since 1.0
- *
- * @param WP_Post $post The current post object.
- */
-function pmpro_downloads_file_meta_box( $post ) {
-	wp_nonce_field( 'pmpro_downloads_save_file', 'pmpro_downloads_file_nonce' );
-
-	$uploaded_filename = get_post_meta( $post->ID, '_pmpro_download_uploaded_filename', true );
-	$stored_filename   = get_post_meta( $post->ID, '_pmpro_download_stored_filename', true );
-	$file_type         = get_post_meta( $post->ID, '_pmpro_download_file_type', true );
-	$file_size         = get_post_meta( $post->ID, '_pmpro_download_file_size', true );
-	$upload_error      = get_post_meta( $post->ID, '_pmpro_download_upload_error', true );
-	$should_clear_error = ! empty( $upload_error );
-
-	if ( empty( $uploaded_filename ) ) {
-		$uploaded_filename = $stored_filename;
-	}
-
-	if ( ! empty( $upload_error ) ) {
-		?>
-		<p class="notice notice-error inline">
-			<strong><?php esc_html_e( 'Upload Error:', 'pmpro-downloads' ); ?></strong>
-			<?php echo esc_html( $upload_error ); ?>
-		</p>
-		<?php
-	}
-
-	if ( ! empty( $uploaded_filename ) ) {
-		?>
-		<div class="pmpro_downloads_file_info">
-			<p>
-				<strong><?php esc_html_e( 'Current File:', 'pmpro-downloads' ); ?></strong>
-				<?php echo esc_html( $uploaded_filename ); ?>
-			</p>
-			<?php if ( ! empty( $stored_filename ) && $stored_filename !== $uploaded_filename ) { ?>
-				<p>
-					<strong><?php esc_html_e( 'Stored Filename:', 'pmpro-downloads' ); ?></strong>
-					<?php echo esc_html( $stored_filename ); ?>
-				</p>
-			<?php } ?>
-			<?php if ( ! empty( $file_type ) ) { ?>
-				<p>
-					<strong><?php esc_html_e( 'Type:', 'pmpro-downloads' ); ?></strong>
-					<?php echo esc_html( $file_type ); ?>
-				</p>
-			<?php } ?>
-			<?php if ( ! empty( $file_size ) ) { ?>
-				<p>
-					<strong><?php esc_html_e( 'Size:', 'pmpro-downloads' ); ?></strong>
-					<?php echo esc_html( size_format( $file_size ) ); ?>
-				</p>
-			<?php } ?>
-			<p>
-				<label>
-					<input type="checkbox" name="pmpro_downloads_remove_file" value="1" />
-					<?php esc_html_e( 'Remove file', 'pmpro-downloads' ); ?>
-				</label>
-			</p>
-			<hr />
-			<p>
-				<strong><?php esc_html_e( 'Replace File:', 'pmpro-downloads' ); ?></strong>
-			</p>
-		</div>
-		<?php
-	}
-	?>
-	<p>
-		<input type="file" name="pmpro_download_file" id="pmpro_download_file" />
-	</p>
-	<?php if ( empty( $uploaded_filename ) ) { ?>
-		<p class="description">
-			<?php esc_html_e( 'Upload a file for this download.', 'pmpro-downloads' ); ?>
-		</p>
-	<?php } ?>
-	<?php
-
-	if ( $should_clear_error ) {
-		delete_post_meta( $post->ID, '_pmpro_download_upload_error' );
-	}
-}
-
-/**
- * Save an upload error message for display in the file metabox.
- *
- * @since 1.0
- *
- * @param int    $post_id The post ID.
- * @param string $message The upload error message.
- */
-function pmpro_downloads_set_upload_error( $post_id, $message ) {
-	if ( empty( $message ) ) {
-		delete_post_meta( $post_id, '_pmpro_download_upload_error' );
-		return;
-	}
-
-	update_post_meta( $post_id, '_pmpro_download_upload_error', sanitize_text_field( $message ) );
-}
 
 /**
  * Store/retrieve the current upload target path for restricted file uploads.
@@ -257,99 +346,6 @@ function pmpro_downloads_upload_target_path( $path = null ) {
 
 	return $upload_target_path;
 }
-
-/**
- * Save the download file on post save.
- *
- * @since 1.0
- *
- * @param int     $post_id The post ID.
- * @param WP_Post $post    The post object.
- * @param bool    $update  Whether this is an existing post being updated.
- */
-function pmpro_downloads_save_file( $post_id, $post, $update ) {
-	// Verify nonce.
-	if ( empty( $_POST['pmpro_downloads_file_nonce'] ) || ! wp_verify_nonce( $_POST['pmpro_downloads_file_nonce'], 'pmpro_downloads_save_file' ) ) {
-		return;
-	}
-
-	// Check capabilities.
-	if ( ! current_user_can( 'edit_post', $post_id ) ) {
-		return;
-	}
-
-	// Skip autosave.
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-		return;
-	}
-
-	pmpro_downloads_set_upload_error( $post_id, '' );
-
-	// Handle file removal.
-	if ( ! empty( $_POST['pmpro_downloads_remove_file'] ) ) {
-		pmpro_downloads_delete_file( $post_id );
-		return;
-	}
-
-	// Handle file upload.
-	if ( ! empty( $_FILES['pmpro_download_file'] ) && ! empty( $_FILES['pmpro_download_file']['name'] ) ) {
-		if ( ! function_exists( 'wp_handle_upload' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-		}
-
-		if ( ! function_exists( 'pmpro_get_restricted_file_path' ) ) {
-			pmpro_downloads_set_upload_error( $post_id, __( 'Paid Memberships Pro is required to upload protected files.', 'pmpro-downloads' ) );
-			return;
-		}
-
-		if ( function_exists( 'pmpro_set_up_restricted_files_directory' ) ) {
-			pmpro_set_up_restricted_files_directory();
-		}
-
-		$restricted_path = pmpro_get_restricted_file_path( 'pmpro-downloads' );
-		if ( empty( $restricted_path ) ) {
-			pmpro_downloads_set_upload_error( $post_id, __( 'Unable to resolve PMPro restricted uploads directory.', 'pmpro-downloads' ) );
-			return;
-		}
-
-		pmpro_downloads_upload_target_path( $restricted_path );
-
-		// Temporarily filter upload_dir to point to the restricted files directory.
-		add_filter( 'upload_dir', 'pmpro_downloads_custom_upload_dir' );
-
-		// Use wp_handle_upload to process the file.
-		$uploaded_file = wp_handle_upload( $_FILES['pmpro_download_file'], array( 'test_form' => false ) );
-
-		// Remove the filter.
-		remove_filter( 'upload_dir', 'pmpro_downloads_custom_upload_dir' );
-		pmpro_downloads_upload_target_path( '' );
-
-		if ( ! empty( $uploaded_file['error'] ) || empty( $uploaded_file['file'] ) ) {
-			$error_message = ! empty( $uploaded_file['error'] ) ? $uploaded_file['error'] : __( 'The file upload failed.', 'pmpro-downloads' );
-			pmpro_downloads_set_upload_error( $post_id, $error_message );
-			return;
-		}
-
-		// Delete old file only after a successful replacement upload.
-		$old_stored_filename = get_post_meta( $post_id, '_pmpro_download_stored_filename', true );
-		if ( ! empty( $old_stored_filename ) ) {
-			pmpro_downloads_delete_file_by_filename( $old_stored_filename );
-		}
-
-		// Save file metadata as post meta.
-		$stored_filename   = basename( $uploaded_file['file'] );
-		$uploaded_filename = sanitize_text_field( wp_basename( wp_unslash( $_FILES['pmpro_download_file']['name'] ) ) );
-		if ( empty( $uploaded_filename ) ) {
-			$uploaded_filename = $stored_filename;
-		}
-
-		update_post_meta( $post_id, '_pmpro_download_stored_filename', $stored_filename );
-		update_post_meta( $post_id, '_pmpro_download_uploaded_filename', $uploaded_filename );
-		update_post_meta( $post_id, '_pmpro_download_file_type', $uploaded_file['type'] );
-		update_post_meta( $post_id, '_pmpro_download_file_size', filesize( $uploaded_file['file'] ) );
-	}
-}
-add_action( 'save_post_pmpro_download', 'pmpro_downloads_save_file', 20, 3 );
 
 /**
  * Filter the upload directory to point to the PMPro restricted files directory.
@@ -422,7 +418,6 @@ function pmpro_downloads_delete_file( $post_id ) {
 	delete_post_meta( $post_id, '_pmpro_download_uploaded_filename' );
 	delete_post_meta( $post_id, '_pmpro_download_file_type' );
 	delete_post_meta( $post_id, '_pmpro_download_file_size' );
-	delete_post_meta( $post_id, '_pmpro_download_upload_error' );
 }
 
 /**

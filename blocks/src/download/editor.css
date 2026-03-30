@@ -4,6 +4,10 @@
  * @since 1.0
  */
 
+.block-editor-block-list__layout [class*="wp-block-pmpro-"].wp-block-pmpro-downloads-download {
+	border: none;
+}
+
 /* Prevent links in the SSR preview from navigating away from the editor. */
 .wp-block-pmpro-downloads-download a {
 	pointer-events: none;

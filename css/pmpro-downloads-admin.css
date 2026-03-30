@@ -1,0 +1,16 @@
+/**
+ * PMPro Downloads admin styles.
+ *
+ * Applied to the Downloads list table and edit screens in wp-admin.
+ */
+
+.pmpro_events_admin {
+	background: var(--pmpro--color--blue-lightest);
+}
+
+/* List tables fixes to match PMPro's admin styles. */
+@media only screen and (min-width: 1200px) {
+	.pmpro_events_admin .widefat tbody th.check-column {
+		padding-top: calc( var(--pmpro--spacing--medium) / 2 )
+	}
+}

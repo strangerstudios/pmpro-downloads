@@ -12,34 +12,42 @@
    ========================================================================== */
 
 .pmpro_download svg,
-.pmpro_download_card svg,
-.pmpro_download_button svg {
+.pmpro_download-card svg,
+.pmpro_download-button svg {
 	vertical-align: middle;
 	flex-shrink: 0;
+}
+
+.pmpro_download-title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%; 
+}
+
+.pmpro_download-icon {
+	align-items: center;
+	display: flex;
+	justify-content: center;
 }
 
 /* ==========================================================================
    Link Template
    ========================================================================== */
 
-.pmpro_download {
-	margin: var(--pmpro--base--spacing--small, 12px) 0;
-}
+.pmpro_download-link {
 
-.pmpro_download_link {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-}
+	display: flex;
+	flex-direction: column;
+	gap: var(--pmpro--base--spacing--medium, 18px);
 
-.pmpro_download_meta {
-	color: var(--pmpro--color--border, #777);
-	font-size: 0.875em;
-}
+	a {
+		align-items: center;
+		display: inline-flex;
+		gap: var(--pmpro--base--spacing--small, 12px);
+		max-width: 100%;
+	}
 
-/* Link template: locked state. */
-.pmpro_download.pmpro_download-locked .pmpro_download_link {
-	color: var(--pmpro--color--border, #777);
 }
 
 /* ==========================================================================
@@ -47,60 +55,44 @@
    ========================================================================== */
 
 /* Inline icon + text in card title. */
-.pmpro_download_card .pmpro_card_title {
-	display: flex;
-	align-items: center;
-	gap: var(--pmpro--base--spacing--small, 12px);
-}
+.pmpro_download-card {
 
-/* Inline icon + text in card action button. */
-.pmpro_download_card .pmpro_card_actions .pmpro_btn {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-}
+	.pmpro_card_title {
+		display: flex;
+		align-items: center;
+		gap: var(--pmpro--base--spacing--small, 12px);
+		max-width: 100%;
+	}
 
-/* Card: locked state icon color. */
-.pmpro_download_card.pmpro_download-locked .pmpro_card_title svg {
-	color: var(--pmpro--color--border, #777);
-}
+	.pmpro_btn {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--pmpro--base--spacing--small, 12px);
+	}
 
+}
 
 /* ==========================================================================
    Button Template
    ========================================================================== */
 
 /* Two-line CTA button layout. */
-.pmpro_download_btn_cta {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--pmpro--base--spacing--small, 12px);
-	text-align: left;
-	text-decoration: none;
-}
-
-.pmpro_download_btn_cta:hover {
-	text-decoration: none;
-}
-
-.pmpro_download_btn_text {
+.pmpro.pmpro_download-button {
 	display: flex;
 	flex-direction: column;
-	line-height: 1.3;
-}
+	gap: var(--pmpro--base--spacing--medium, 18px);
 
-.pmpro_download_btn_text strong {
-	font-size: 1em;
-}
+	.pmpro_btn-download {
+		align-items: center;
+		align-self: flex-start;
+		display: inline-flex;
+		flex-direction: row;
+		gap: var(--pmpro--base--spacing--small, 12px);
+		text-decoration: none;
+		min-width: 200px;
+		max-width: 100%; 
+	}
 
-.pmpro_download_btn_text small {
-	font-size: 0.8125em;
-	font-weight: 400;
-	opacity: 0.85;
-}
-
-.pmpro_download_button {
-	margin: var(--pmpro--base--spacing--medium, 18px) 0;
 }
 
 /* ==========================================================================
@@ -110,12 +102,12 @@
 .pmpro_download_library-list {
 	display: flex;
 	flex-direction: column;
-	gap: var(--pmpro--base--spacing--small, 12px);
+	gap: var(--pmpro--base--spacing--large, 36px);
 }
 
 .pmpro_download_library-grid {
 	display: grid;
-	gap: var(--pmpro--base--spacing--medium, 18px);
+	gap: var(--pmpro--base--spacing--large, 36px);
 }
 
 .pmpro_download_library-columns-2 {
@@ -128,18 +120,19 @@
 
 /* Reset individual template margins inside the library so the grid/flex gap controls spacing. */
 .pmpro_download_library .pmpro_download,
-.pmpro_download_library .pmpro_download_button,
+.pmpro_download_library .pmpro_download-link,
+.pmpro_download_library .pmpro_download-button,
 .pmpro_download_library .pmpro .pmpro_card {
 	margin: 0;
 }
 
 /* Grid: buttons stretch to fill cells and center content. */
-.pmpro_download_library-grid .pmpro_download_button {
+.pmpro_download_library-grid .pmpro_download-button {
 	display: flex;
 	flex-direction: column;
 }
 
-.pmpro_download_library-grid .pmpro_download_btn_cta {
+.pmpro_download_library-grid .pmpro_download-button .pmpro_btn-download {
 	flex: 1;
 	width: 100%;
 	justify-content: center;
@@ -153,11 +146,11 @@
 	min-width: 0;
 }
 
-.pmpro_download_library-grid .pmpro .pmpro_card {
+.pmpro_download_library-grid .pmpro .pmpro_download-card {
 	flex: 1;
 }
 
 /* Push the card actions to the bottom when cards have different content heights. */
-.pmpro_download_library-grid .pmpro .pmpro_card_content {
+.pmpro_download_library-grid .pmpro_download-card .pmpro_card_content {
 	flex: 1;
 }

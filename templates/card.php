@@ -18,56 +18,73 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <?php if ( $template_vars['has_access'] ) : ?>
-	<div class="pmpro">
-		<div class="pmpro_card pmpro_download_card">
-			<h2 class="pmpro_card_title pmpro_font-large">
-				<?php echo pmpro_downloads_get_file_icon( $template_vars['file_extension'], 24 ); ?>
-				<?php echo esc_html( $template_vars['display_name'] ); ?>
+	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro' ) ); ?>">
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card pmpro_download pmpro_download-card', 'pmpro_download-card' ) ); ?>">
+			<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_title pmpro_font-large' ) ); ?>">
+				<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-icon' ) ); ?>">
+					<?php echo pmpro_downloads_get_file_icon( $template_vars['file_extension'], 24 ); ?>
+				</span>
+				<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-title' ) ); ?>">
+					<?php echo esc_html( $template_vars['display_name'] ); ?>
+				</span>
 			</h2>
-			<?php if ( ! empty( $template_vars['description'] ) ) : ?>
-				<div class="pmpro_card_content">
+			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
+				<?php if ( ! empty( $template_vars['description'] ) ) : ?>
 					<?php echo wp_kses_post( $template_vars['description'] ); ?>
-				</div>
-			<?php endif; ?>
-			<div class="pmpro_card_actions">
-				<a class="pmpro_btn" href="<?php echo esc_url( $template_vars['download_url'] ); ?>">
-					<?php echo pmpro_downloads_get_icon_svg( 'download', 16 ); ?>
-					<?php esc_html_e( 'Download', 'pmpro-downloads' ); ?>
-				</a>
+				<?php endif; ?>
+				<p>
+					<a class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_btn pmpro_btn-download' ) ); ?>" href="<?php echo esc_url( $template_vars['download_url'] ); ?>">
+						<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-icon' ) ); ?>">
+							<?php echo pmpro_downloads_get_icon_svg( 'download', 16 ); ?>
+						</span>
+						<?php esc_html_e( 'Download', 'pmpro-downloads' ); ?>
+					</a>
+				</p>
 			</div>
 		</div>
 	</div>
 
 <?php else : ?>
-	<div class="pmpro">
-		<div class="pmpro_card pmpro_download_card pmpro_download-locked">
-			<h2 class="pmpro_card_title pmpro_font-large">
-				<?php echo pmpro_downloads_get_icon_svg( 'lock', 24 ); ?>
-				<?php echo esc_html( $template_vars['display_name'] ); ?>
+	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro' ) ); ?>">
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card pmpro_download pmpro_download-card pmpro_download-locked', 'pmpro_download-card' ) ); ?>">
+			<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_title pmpro_font-large' ) ); ?>">
+				<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-icon' ) ); ?>">
+					<?php echo pmpro_downloads_get_icon_svg( 'lock', 24 ); ?>
+				</span>
+				<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-title' ) ); ?>">
+					<?php echo esc_html( $template_vars['display_name'] ); ?>
+				</span>
 			</h2>
-			<div class="pmpro_card_content">
+			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
 				<?php if ( ! empty( $template_vars['description'] ) ) : ?>
 					<?php echo wp_kses_post( $template_vars['description'] ); ?>
 				<?php endif; ?>
-				<p class="pmpro_font-medium">
+				<p class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-levels' ) ); ?>">
 					<?php
 					/* translators: %s: membership level name(s) */
-					printf( esc_html__( 'Requires %s membership', 'pmpro-downloads' ), esc_html( pmpro_implodeToEnglish( $template_vars['level_names'], 'or' ) ) );
+					printf( esc_html__( 'You must be a %s member to access this download.', 'pmpro-downloads' ), esc_html( pmpro_implodeToEnglish( $template_vars['level_names'], __( 'or', 'pmpro-downloads' ) ) ) );
 					?>
 				</p>
+				<p>
+					<a class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_btn' ) ); ?>" href="<?php echo esc_url( $template_vars['no_access_url'] ); ?>">
+						<?php
+							if ( count( $template_vars['level_ids'] ) === 1 ) {
+								esc_html_e( 'Join Now', 'pmpro-downloads' );
+							} else {
+								esc_html_e( 'View Membership Levels', 'pmpro-downloads' );
+							}
+						?>
+					</a>
+				</p>
 			</div>
-			<div class="pmpro_card_actions">
-				<a class="pmpro_btn" href="<?php echo esc_url( $template_vars['no_access_url'] ); ?>">
-					<?php echo pmpro_downloads_get_icon_svg( 'lock', 16 ); ?>
-					<?php
-					if ( count( $template_vars['level_ids'] ) === 1 ) {
-						esc_html_e( 'Join Now', 'pmpro-downloads' );
-					} else {
-						esc_html_e( 'View Membership Options', 'pmpro-downloads' );
-					}
-					?>
-				</a>
-			</div>
+			<?php
+				// If the user is not logged in, show a link to log in if the message doesn't already have one.
+				if ( ! is_user_logged_in() ) : ?>
+					<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_actions' ) ); ?>">
+						<?php esc_html_e( 'Already a member?', 'pmpro-downloads' ); ?> <a href="<?php echo esc_url( wp_login_url( get_permalink() ) ); ?>"><?php esc_html_e( 'Log in here', 'pmpro-downloads' ); ?></a>
+					</div>
+				<?php endif;
+			?>
 		</div>
 	</div>
 <?php endif; ?>
