@@ -22,6 +22,7 @@ require_once PMPRO_DOWNLOADS_DIR . '/includes/post-types.php';
 require_once PMPRO_DOWNLOADS_DIR . '/includes/templates.php';
 require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes.php';
 require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes-library.php';
+require_once PMPRO_DOWNLOADS_DIR . '/includes/emails.php';
 
 if ( is_admin() ) {
 	require_once PMPRO_DOWNLOADS_DIR . '/includes/admin.php';
