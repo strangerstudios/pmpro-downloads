@@ -74,5 +74,8 @@ function pmpro_downloads_replace_shortcode_with_link( $matches ) {
 		$display_name = __( 'Download', 'pmpro-downloads' );
 	}
 
-	return '<a href="' . esc_url( $download_url ) . '">' . esc_html( $display_name ) . '</a>';
+	// Link to the login page with the download URL as the redirect destination.
+	$login_url = pmpro_login_url( $download_url );
+
+	return '<a href="' . esc_url( $login_url ) . '">' . esc_html( $display_name ) . '</a>';
 }
