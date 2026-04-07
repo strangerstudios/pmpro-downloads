@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, SelectControl, Placeholder, Spinner } from '@wordpress/components';
+import { PanelBody, SelectControl, ToggleControl, Placeholder, Spinner } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 import { useSelect } from '@wordpress/data';
 
@@ -15,7 +15,7 @@ import { useSelect } from '@wordpress/data';
  */
 export default function Edit( { attributes, setAttributes } ) {
 	const blockProps = useBlockProps();
-	const { id, template, label } = attributes;
+	const { id, template, label, embed_image: embedImage } = attributes;
 
 	// Fetch all published pmpro_download posts.
 	const { downloads, isLoading } = useSelect( ( select ) => {
@@ -44,6 +44,11 @@ export default function Edit( { attributes, setAttributes } ) {
 			label: download.title.rendered,
 		} ) ),
 	];
+
+	// Check if the selected download is an image.
+	const selectedDownload = id ? downloads.find( ( d ) => d.id === id ) : null;
+	const fileType = selectedDownload?.meta?._pmpro_download_file_type || '';
+	const isImage = fileType.startsWith( 'image/' ) && fileType !== 'image/svg+xml';
 
 	// Template options.
 	const templateOptions = [
@@ -106,6 +111,14 @@ export default function Edit( { attributes, setAttributes } ) {
 						options={ labelOptions }
 						onChange={ ( value ) => setAttributes( { label: value } ) }
 					/>
+					{ isImage && (
+						<ToggleControl
+							label={ __( 'Embed Image', 'pmpro-downloads' ) }
+							help={ __( 'Display the image inline for members instead of only showing a download link.', 'pmpro-downloads' ) }
+							checked={ embedImage }
+							onChange={ ( value ) => setAttributes( { embed_image: value } ) }
+						/>
+					) }
 				</PanelBody>
 			</InspectorControls>
 			<div { ...blockProps }>
