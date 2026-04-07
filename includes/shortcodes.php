@@ -21,9 +21,10 @@ function pmpro_downloads_shortcode( $atts ) {
 	}
 
 	$atts = shortcode_atts( array(
-		'id'       => 0,
-		'template' => 'link',
-		'label'    => 'title',
+		'id'          => 0,
+		'template'    => 'link',
+		'label'       => 'title',
+		'embed_image' => false,
 	), $atts, 'pmpro_download' );
 
 	$post_id = intval( $atts['id'] );
@@ -101,6 +102,7 @@ function pmpro_downloads_shortcode( $atts ) {
 		'level_ids'         => $level_ids,
 		'level_names'       => $level_names,
 		'description'       => $description,
+		'embed_image'       => filter_var( $atts['embed_image'], FILTER_VALIDATE_BOOLEAN ),
 	);
 
 	return pmpro_downloads_render_template( $template, $template_vars );
