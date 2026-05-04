@@ -34,10 +34,14 @@ add_action( 'pmpro_before_email_sent', 'pmpro_downloads_swap_shortcodes_in_email
 /**
  * Callback to replace a single [pmpro_download] shortcode match with a download link.
  *
+ * If the shortcode is invalid (missing ID, ID does not point to a pmpro_download
+ * post, or the download has no file), the original shortcode text is returned
+ * unchanged so the admin who configured the email can see the typo and fix it.
+ *
  * @since 1.1
  *
  * @param array $matches Regex matches from preg_replace_callback.
- * @return string HTML link or the original shortcode if the download is invalid.
+ * @return string HTML link, or the original shortcode if the download is invalid.
  */
 function pmpro_downloads_replace_shortcode_with_link( $matches ) {
 	// Parse the shortcode attributes from the matched string.
@@ -45,19 +49,19 @@ function pmpro_downloads_replace_shortcode_with_link( $matches ) {
 
 	$post_id = isset( $atts['id'] ) ? intval( $atts['id'] ) : 0;
 	if ( empty( $post_id ) ) {
-		return '';
+		return $matches[0];
 	}
 
 	// Verify this is a valid download post.
 	$download = get_post( $post_id );
 	if ( empty( $download ) || 'pmpro_download' !== $download->post_type ) {
-		return '';
+		return $matches[0];
 	}
 
 	// Build the download URL.
 	$download_url = pmpro_downloads_get_download_url( $post_id );
 	if ( empty( $download_url ) ) {
-		return '';
+		return $matches[0];
 	}
 
 	// Determine the display name.
