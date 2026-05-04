@@ -157,6 +157,18 @@ function pmpro_downloads_get_file_icon( $file_extension, $size = 24 ) {
 }
 
 /**
+ * Check if a file type (MIME type) is a displayable image.
+ *
+ * @since 1.1
+ *
+ * @param string $file_type The MIME type of the file.
+ * @return bool True if the file is a displayable image.
+ */
+function pmpro_downloads_is_image( $file_type ) {
+	return ! empty( $file_type ) && strpos( $file_type, 'image/' ) === 0 && $file_type !== 'image/svg+xml';
+}
+
+/**
  * Get the URL to direct non-members for a restricted download.
  *
  * If only one membership level has access, returns the checkout URL for that level.
