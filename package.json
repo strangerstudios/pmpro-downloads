@@ -1,6 +1,6 @@
 {
   "name": "pmpro-downloads",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Paid Memberships Pro - Downloads Add On",
   "scripts": {
     "build": "wp-scripts build",
