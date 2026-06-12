@@ -19,6 +19,7 @@ define( 'PMPRO_DOWNLOADS_BASENAME', plugin_basename( __FILE__ ) );
 
 // Includes.
 require_once PMPRO_DOWNLOADS_DIR . '/includes/post-types.php';
+require_once PMPRO_DOWNLOADS_DIR . '/includes/taxonomies.php';
 require_once PMPRO_DOWNLOADS_DIR . '/includes/templates.php';
 require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes.php';
 require_once PMPRO_DOWNLOADS_DIR . '/includes/shortcodes-library.php';
