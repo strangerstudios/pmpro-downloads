@@ -76,9 +76,20 @@ add_action( 'init', 'pmpro_downloads_cpt', 30 );
  * Force the block editor for the download CPT.
  *
  * The download editing experience relies on the block editor (e.g. for the
- * file upload UI). Sites running ClassicPress or with the Classic Editor
- * forced would otherwise be unable to add a download, so we require the block
- * editor for this post type specifically.
+ * file upload UI). On WordPress sites with the Classic Editor plugin forcing
+ * classic mode, users would otherwise be unable to add a download, so we
+ * require the block editor for this post type specifically.
+ *
+ * Two filters are needed to cover both Classic Editor configurations:
+ *  - use_block_editor_for_post_type catches the "force classic, no switching"
+ *    setting, where Classic Editor hooks this filter with __return_false at
+ *    priority 100. Running at 101 lets us win.
+ *  - use_block_editor_for_post catches the "allow users to switch editors"
+ *    setting, where Classic Editor hooks the per-post filter instead and would
+ *    otherwise default the "Add New" download screen back to the classic editor.
+ *
+ * Note: this does not help true ClassicPress installs, which remove the block
+ * editor entirely; that scenario needs a separate solution.
  *
  * @since TBD
  *
@@ -93,6 +104,28 @@ function pmpro_downloads_force_block_editor( $use_block_editor, $post_type ) {
 	return $use_block_editor;
 }
 add_filter( 'use_block_editor_for_post_type', 'pmpro_downloads_force_block_editor', 101, 2 );
+
+/**
+ * Force the block editor for individual download posts.
+ *
+ * Complements pmpro_downloads_force_block_editor() by covering the per-post
+ * use_block_editor_for_post filter, which runs after (and can override) the
+ * post-type filter. Needed when the Classic Editor plugin allows users to
+ * switch editors but defaults new downloads to the classic editor.
+ *
+ * @since TBD
+ *
+ * @param bool    $use_block_editor Whether the block editor should be used.
+ * @param WP_Post $post             The post being edited.
+ * @return bool
+ */
+function pmpro_downloads_force_block_editor_for_post( $use_block_editor, $post ) {
+	if ( $post instanceof WP_Post && 'pmpro_download' === $post->post_type ) {
+		return true;
+	}
+	return $use_block_editor;
+}
+add_filter( 'use_block_editor_for_post', 'pmpro_downloads_force_block_editor_for_post', 101, 2 );
 
 /**
  * Register post meta fields for downloads.
