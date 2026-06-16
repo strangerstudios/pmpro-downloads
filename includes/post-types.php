@@ -73,6 +73,28 @@ function pmpro_downloads_cpt() {
 add_action( 'init', 'pmpro_downloads_cpt', 30 );
 
 /**
+ * Force the block editor for the download CPT.
+ *
+ * The download editing experience relies on the block editor (e.g. for the
+ * file upload UI). Sites running ClassicPress or with the Classic Editor
+ * forced would otherwise be unable to add a download, so we require the block
+ * editor for this post type specifically.
+ *
+ * @since TBD
+ *
+ * @param bool   $use_block_editor Whether the block editor should be used.
+ * @param string $post_type        The post type being edited.
+ * @return bool
+ */
+function pmpro_downloads_force_block_editor( $use_block_editor, $post_type ) {
+	if ( 'pmpro_download' === $post_type ) {
+		return true;
+	}
+	return $use_block_editor;
+}
+add_filter( 'use_block_editor_for_post_type', 'pmpro_downloads_force_block_editor', 101, 2 );
+
+/**
  * Register post meta fields for downloads.
  *
  * @since 1.0
