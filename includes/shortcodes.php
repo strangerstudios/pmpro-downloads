@@ -57,6 +57,10 @@ function pmpro_downloads_shortcode( $atts ) {
 		$level_names = array();
 	}
 
+	// Hide levels that don't allow signups from locked templates,
+	// matching core's no access message behavior.
+	list( $level_ids, $level_names ) = pmpro_downloads_get_displayable_levels( $level_ids, $level_names );
+
 	// Gather file metadata.
 	$uploaded_filename = get_post_meta( $post_id, '_pmpro_download_uploaded_filename', true );
 	$stored_filename   = get_post_meta( $post_id, '_pmpro_download_stored_filename', true );

@@ -190,3 +190,39 @@ function pmpro_downloads_get_no_access_url( $level_ids ) {
 
 	return pmpro_url( 'levels' );
 }
+
+/**
+ * Filter a set of membership levels down to those that should be shown
+ * to non-members in locked download templates.
+ *
+ * Removes levels that don't allow signups (e.g. hidden or admin-assigned
+ * levels) so their names are not leaked to non-members, matching the
+ * behavior of pmpro_get_no_access_message() in PMPro core.
+ *
+ * @since TBD
+ *
+ * @param array $level_ids   Array of membership level IDs that have access.
+ * @param array $level_names Array of matching membership level names.
+ * @return array Two-item array of the displayable level IDs and level names, reindexed.
+ */
+function pmpro_downloads_get_displayable_levels( $level_ids, $level_names ) {
+	if ( ! function_exists( 'pmpro_getLevel' ) ) {
+		return array( $level_ids, $level_names );
+	}
+
+	// Allow sites to show all levels, matching the core no access message filter.
+	if ( apply_filters( 'pmpro_membership_content_filter_disallowed_levels', false, $level_ids, $level_names ) ) {
+		return array( $level_ids, $level_names );
+	}
+
+	foreach ( $level_ids as $key => $id ) {
+		// Does this level allow registrations?
+		$level_obj = pmpro_getLevel( $id );
+		if ( empty( $level_obj ) || empty( $level_obj->allow_signups ) ) {
+			unset( $level_ids[ $key ] );
+			unset( $level_names[ $key ] );
+		}
+	}
+
+	return array( array_values( $level_ids ), array_values( $level_names ) );
+}

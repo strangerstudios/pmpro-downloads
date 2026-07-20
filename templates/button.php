@@ -43,8 +43,12 @@ if ( $template_vars['has_access'] ) : ?>
 		</a>
 		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-levels' ) ); ?>">
 			<?php
-			/* translators: %s: membership level name(s) */
-			printf( esc_html__( 'Requires %s membership', 'pmpro-downloads' ), esc_html( pmpro_implodeToEnglish( $template_vars['level_names'], 'or' ) ) );
+			if ( ! empty( $template_vars['level_names'] ) ) {
+				/* translators: %s: membership level name(s) */
+				printf( esc_html__( 'Requires %s membership', 'pmpro-downloads' ), esc_html( pmpro_implodeToEnglish( $template_vars['level_names'], 'or' ) ) );
+			} else {
+				esc_html_e( 'Requires membership', 'pmpro-downloads' );
+			}
 			?>
 		</div>
 	</div>

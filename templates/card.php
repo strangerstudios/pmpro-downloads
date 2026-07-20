@@ -66,8 +66,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php endif; ?>
 				<p class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-levels' ) ); ?>">
 					<?php
-					/* translators: %s: membership level name(s) */
-					printf( esc_html__( 'You must be a %s member to access this download.', 'pmpro-downloads' ), esc_html( pmpro_implodeToEnglish( $template_vars['level_names'], __( 'or', 'pmpro-downloads' ) ) ) );
+					if ( ! empty( $template_vars['level_names'] ) ) {
+						/* translators: %s: membership level name(s) */
+						printf( esc_html__( 'You must be a %s member to access this download.', 'pmpro-downloads' ), esc_html( pmpro_implodeToEnglish( $template_vars['level_names'], __( 'or', 'pmpro-downloads' ) ) ) );
+					} else {
+						esc_html_e( 'You must be a member to access this download.', 'pmpro-downloads' );
+					}
 					?>
 				</p>
 				<p>
