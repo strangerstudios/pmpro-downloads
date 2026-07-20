@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Paid Memberships Pro - Downloads Add On 1.1\n"
+"Project-Id-Version: Paid Memberships Pro - Downloads Add On 1.2\n"
 "Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
 "Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-04T17:18:53+00:00\n"
+"POT-Creation-Date: 2026-07-20T18:27:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pmpro-downloads\n"
@@ -164,33 +164,99 @@ msgstr ""
 msgid "Restricted file downloads for members."
 msgstr ""
 
-#: includes/post-types.php:233
-#: includes/post-types.php:310
+#: includes/post-types.php:288
+#: includes/post-types.php:365
 msgid "Invalid post type."
 msgstr ""
 
-#: includes/post-types.php:238
+#: includes/post-types.php:293
 msgid "No file was uploaded."
 msgstr ""
 
-#: includes/post-types.php:246
+#: includes/post-types.php:301
 msgid "Paid Memberships Pro is required to upload protected files."
 msgstr ""
 
-#: includes/post-types.php:255
+#: includes/post-types.php:310
 msgid "Unable to resolve PMPro restricted uploads directory."
 msgstr ""
 
-#: includes/post-types.php:267
+#: includes/post-types.php:322
 msgid "The file upload failed."
 msgstr ""
 
-#: includes/post-types.php:382
+#: includes/post-types.php:437
 msgid "Unable to determine PMPro restricted uploads directory."
 msgstr ""
 
-#: includes/post-types.php:387
+#: includes/post-types.php:442
 msgid "Unable to create PMPro restricted downloads directory."
+msgstr ""
+
+#: includes/taxonomies.php:18
+msgctxt "Taxonomy General Name"
+msgid "Download Categories"
+msgstr ""
+
+#: includes/taxonomies.php:19
+msgctxt "Taxonomy Singular Name"
+msgid "Download Category"
+msgstr ""
+
+#: includes/taxonomies.php:20
+msgid "Categories"
+msgstr ""
+
+#: includes/taxonomies.php:21
+msgid "All Categories"
+msgstr ""
+
+#: includes/taxonomies.php:22
+msgid "Parent Category"
+msgstr ""
+
+#: includes/taxonomies.php:23
+msgid "Parent Category:"
+msgstr ""
+
+#: includes/taxonomies.php:24
+msgid "New Category Name"
+msgstr ""
+
+#: includes/taxonomies.php:25
+msgid "Add New Category"
+msgstr ""
+
+#: includes/taxonomies.php:26
+msgid "Edit Category"
+msgstr ""
+
+#: includes/taxonomies.php:27
+msgid "Update Category"
+msgstr ""
+
+#: includes/taxonomies.php:28
+msgid "View Category"
+msgstr ""
+
+#: includes/taxonomies.php:29
+msgid "Search Categories"
+msgstr ""
+
+#: includes/taxonomies.php:30
+msgid "Not Found"
+msgstr ""
+
+#: includes/taxonomies.php:31
+msgid "No categories"
+msgstr ""
+
+#: includes/taxonomies.php:32
+msgid "Categories list"
+msgstr ""
+
+#: includes/taxonomies.php:33
+msgid "Categories list navigation"
 msgstr ""
 
 #: includes/templates.php:78
@@ -244,19 +310,19 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: pmpro-downloads.php:159
+#: pmpro-downloads.php:160
 msgid "View Documentation"
 msgstr ""
 
-#: pmpro-downloads.php:159
+#: pmpro-downloads.php:160
 msgid "Docs"
 msgstr ""
 
-#: pmpro-downloads.php:160
+#: pmpro-downloads.php:161
 msgid "Visit Customer Support Forum"
 msgstr ""
 
-#: pmpro-downloads.php:160
+#: pmpro-downloads.php:161
 msgid "Support"
 msgstr ""
 
@@ -267,37 +333,46 @@ msgid "Download %s"
 msgstr ""
 
 #. translators: %s: membership level name(s)
-#: templates/button.php:47
-#: templates/link.php:47
+#: templates/button.php:48
+#: templates/link.php:48
 #, php-format
 msgid "Requires %s membership"
 msgstr ""
 
+#: templates/button.php:50
+#: templates/link.php:50
+msgid "Requires membership"
+msgstr ""
+
 #. translators: %s: membership level name(s)
-#: templates/card.php:70
+#: templates/card.php:71
 #, php-format
 msgid "You must be a %s member to access this download."
 msgstr ""
 
 #. translators: %s: membership level name(s)
-#: templates/card.php:70
-#: templates/link.php:47
+#: templates/card.php:71
+#: templates/link.php:48
 msgid "or"
 msgstr ""
 
-#: templates/card.php:77
+#: templates/card.php:73
+msgid "You must be a member to access this download."
+msgstr ""
+
+#: templates/card.php:81
 msgid "Join Now"
 msgstr ""
 
-#: templates/card.php:79
+#: templates/card.php:83
 msgid "View Membership Levels"
 msgstr ""
 
-#: templates/card.php:89
+#: templates/card.php:93
 msgid "Already a member?"
 msgstr ""
 
-#: templates/card.php:89
+#: templates/card.php:93
 msgid "Log in here"
 msgstr ""
 
