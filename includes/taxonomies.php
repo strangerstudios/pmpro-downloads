@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * so each category term can be protected by membership level exactly like core
  * PMPro categories.
  *
- * @since TBD
+ * @since 1.2
  */
 function pmpro_downloads_register_taxonomies() {
 	$labels = array(
@@ -57,7 +57,7 @@ add_action( 'init', 'pmpro_downloads_register_taxonomies', 30 );
  * pmpro_has_membership_access(), search/archive filtering, the checklist on
  * the edit level admin page, and cleanup when a term is deleted.
  *
- * @since TBD
+ * @since 1.2
  *
  * @param array $taxonomies Taxonomies that PMPro can restrict.
  * @return array Modified array of restrictable taxonomies.

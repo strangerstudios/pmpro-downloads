@@ -199,7 +199,7 @@ function pmpro_downloads_get_no_access_url( $level_ids ) {
  * levels) so their names are not leaked to non-members, matching the
  * behavior of pmpro_get_no_access_message() in PMPro core.
  *
- * @since TBD
+ * @since 1.2
  *
  * @param array $level_ids   Array of membership level IDs that have access.
  * @param array $level_names Array of matching membership level names.

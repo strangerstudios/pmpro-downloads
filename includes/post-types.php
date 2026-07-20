@@ -91,7 +91,7 @@ add_action( 'init', 'pmpro_downloads_cpt', 30 );
  * Note: this does not help true ClassicPress installs, which remove the block
  * editor entirely; that scenario needs a separate solution.
  *
- * @since TBD
+ * @since 1.2
  *
  * @param bool   $use_block_editor Whether the block editor should be used.
  * @param string $post_type        The post type being edited.
@@ -113,7 +113,7 @@ add_filter( 'use_block_editor_for_post_type', 'pmpro_downloads_force_block_edito
  * post-type filter. Needed when the Classic Editor plugin allows users to
  * switch editors but defaults new downloads to the classic editor.
  *
- * @since TBD
+ * @since 1.2
  *
  * @param bool    $use_block_editor Whether the block editor should be used.
  * @param WP_Post $post             The post being edited.
