@@ -66,11 +66,11 @@ function pmpro_download_library_shortcode( $atts ) {
 		$term_ids   = array();
 		$term_slugs = array();
 		foreach ( array_filter( array_map( 'trim', explode( ',', $atts['category'] ) ) ) as $term ) {
+			// Numeric values could be a term ID or a numeric slug (such as "2024"), so check both.
 			if ( is_numeric( $term ) ) {
 				$term_ids[] = intval( $term );
-			} else {
-				$term_slugs[] = sanitize_title( $term );
 			}
+			$term_slugs[] = sanitize_title( $term );
 		}
 
 		$tax_query = array( 'relation' => 'OR' );

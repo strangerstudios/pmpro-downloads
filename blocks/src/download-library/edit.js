@@ -21,7 +21,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	const downloadCategories = useSelect( ( select ) => {
 		const { getEntityRecords } = select( 'core' );
 		return getEntityRecords( 'taxonomy', 'pmpro_download_category', {
-			per_page: 100,
+			per_page: -1,
 			hide_empty: false,
 		} ) || [];
 	}, [] );
@@ -35,11 +35,15 @@ export default function Edit( { attributes, setAttributes } ) {
 	} );
 
 	// Update the category attribute from the token field's term names.
+	// Saved slugs that are not in the loaded term list are shown as the raw slug, so keep them.
 	const onChangeCategories = ( tokens ) => {
 		const slugs = tokens
 			.map( ( token ) => {
 				const term = downloadCategories.find( ( cat ) => cat.name === token );
-				return term ? term.slug : null;
+				if ( term ) {
+					return term.slug;
+				}
+				return selectedSlugs.includes( token ) ? token : null;
 			} )
 			.filter( ( slug ) => slug );
 		setAttributes( { category: slugs.join( ',' ) } );
