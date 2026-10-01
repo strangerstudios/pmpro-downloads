@@ -121,7 +121,7 @@ add_shortcode( 'pmpro_download', 'pmpro_downloads_shortcode' );
  * syntax is still respected. The callback receives match groups in the
  * get_shortcode_regex() format (tag in $matches[2], attributes in $matches[3]).
  *
- * @since TBD
+ * @since 1.2.1
  *
  * @param string   $content  Content to search for shortcodes.
  * @param callable $callback Callback passed to preg_replace_callback().
@@ -148,7 +148,7 @@ function pmpro_downloads_replace_shortcodes( $content, $callback ) {
  * Note: core echoes this message through wp_kses_post(), which strips the
  * SVG icons from our templates, so downloads render here without icons.
  *
- * @since TBD
+ * @since 1.2.1
  *
  * @param string $message The confirmation message.
  * @return string The confirmation message with download shortcodes rendered.
@@ -173,7 +173,7 @@ add_filter( 'pmpro_confirmation_message', 'pmpro_downloads_confirmation_message'
  * do_shortcode() pass (such as on block-based confirmation pages) removes the
  * escape brackets instead of rendering the download.
  *
- * @since TBD
+ * @since 1.2.1
  *
  * @param array $m Regex matches in the get_shortcode_regex() format.
  * @return string The rendered shortcode, or the original text if escaped.

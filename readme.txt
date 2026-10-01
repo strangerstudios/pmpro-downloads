@@ -2,9 +2,9 @@
 Contributors: strangerstudios, dparker1005
 Tags: pmpro, paid memberships pro, members, memberships, downloads, files, restricted
 Requires at least: 5.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,12 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 Please visit our premium support site at [https://www.paidmembershipspro.com](https://www.paidmembershipspro.com) for more documentation and our support forums.
 
 == Changelog ==
+= 1.2.1 - 2026-10-01 =
+* SECURITY: Improved sanitization and escaping throughout the plugin to resolve Plugin Check security findings. #12 (@dparker1005)
+* SECURITY: The `[pmpro_download]` shortcode, Download block, Download Library and email download links now only display published downloads. Unpublished downloads render nothing on pages and are left as plain shortcode text in emails. #13 (@dparker1005)
+* ENHANCEMENT: Added a `category` attribute to the `[pmpro_download_library]` shortcode and a Categories setting to the Download Library block to filter downloads by download category. #10 (@dparker1005)
+* BUG FIX: Fixed `[pmpro_download]` shortcodes in level confirmation messages showing as raw text on confirmation pages that use the `[pmpro_confirmation]` shortcode. #11 (@dparker1005)
+
 = 1.2 - 2026-07-20 =
 * FEATURE: Added Download Categories, allowing downloads to be organized and categories to be protected by membership level. #7 (@kimcoleman)
 * ENHANCEMENT: Forced Downloads to use the block editor when the Classic Editor plugin is active, ensuring the download editing interface remains available. #8 (@kimcoleman)
