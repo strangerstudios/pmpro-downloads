@@ -112,3 +112,76 @@ function pmpro_downloads_shortcode( $atts ) {
 	return pmpro_downloads_render_template( $template, $template_vars );
 }
 add_shortcode( 'pmpro_download', 'pmpro_downloads_shortcode' );
+
+/**
+ * Replace only [pmpro_download] shortcodes in a string of content.
+ *
+ * Uses core's shortcode regex restricted to the pmpro_download tag so that
+ * other shortcodes in the content are left untouched and the [[escaped]]
+ * syntax is still respected. The callback receives match groups in the
+ * get_shortcode_regex() format (tag in $matches[2], attributes in $matches[3]).
+ *
+ * @since TBD
+ *
+ * @param string   $content  Content to search for shortcodes.
+ * @param callable $callback Callback passed to preg_replace_callback().
+ * @return string Content with [pmpro_download] shortcodes replaced.
+ */
+function pmpro_downloads_replace_shortcodes( $content, $callback ) {
+	// Bail early if there is no shortcode in the content.
+	if ( ! is_string( $content ) || false === strpos( $content, '[pmpro_download' ) ) {
+		return $content;
+	}
+
+	$pattern = get_shortcode_regex( array( 'pmpro_download' ) );
+	return preg_replace_callback( "/$pattern/", $callback, $content );
+}
+
+/**
+ * Render [pmpro_download] shortcodes in a level confirmation message.
+ *
+ * Shortcode output is not re-parsed for nested shortcodes, so a download
+ * shortcode placed in a level confirmation message renders as raw text when
+ * the confirmation page uses the [pmpro_confirmation] shortcode. Rendering
+ * here covers both the block and shortcode confirmation pages.
+ *
+ * Note: core echoes this message through wp_kses_post(), which strips the
+ * SVG icons from our templates, so downloads render here without icons.
+ *
+ * @since TBD
+ *
+ * @param string $message The confirmation message.
+ * @return string The confirmation message with download shortcodes rendered.
+ */
+function pmpro_downloads_confirmation_message( $message ) {
+	// Bail early if there is no shortcode in the message.
+	if ( ! is_string( $message ) || false === strpos( $message, '[pmpro_download' ) ) {
+		return $message;
+	}
+
+	// The message has already been through wpautop(), so remove the <p> tags wrapped around standalone shortcodes.
+	$message = shortcode_unautop( $message );
+
+	return pmpro_downloads_replace_shortcodes( $message, 'pmpro_downloads_confirmation_message_callback' );
+}
+add_filter( 'pmpro_confirmation_message', 'pmpro_downloads_confirmation_message' );
+
+/**
+ * Render a single [pmpro_download] shortcode match in a level confirmation message.
+ *
+ * Escaped [[pmpro_download]] matches are returned unchanged so that a later
+ * do_shortcode() pass (such as on block-based confirmation pages) removes the
+ * escape brackets instead of rendering the download.
+ *
+ * @since TBD
+ *
+ * @param array $m Regex matches in the get_shortcode_regex() format.
+ * @return string The rendered shortcode, or the original text if escaped.
+ */
+function pmpro_downloads_confirmation_message_callback( $m ) {
+	if ( '[' === $m[1] && ']' === $m[6] ) {
+		return $m[0];
+	}
+
+	return do_shortcode_tag( $m );
+}
