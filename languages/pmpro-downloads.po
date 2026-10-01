@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Paid Memberships Pro - Downloads Add On 1.2\n"
+"Project-Id-Version: Paid Memberships Pro - Downloads Add On 1.2.1\n"
 "Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
 "Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-20T18:27:49+00:00\n"
+"POT-Creation-Date: 2026-10-01T16:54:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pmpro-downloads\n"
@@ -75,6 +75,7 @@ msgstr ""
 #: templates/card.php:45
 #: blocks/src/download/edit.js:79
 #: blocks/src/download/edit.js:95
+#: includes/emails.php:76
 msgid "Download"
 msgstr ""
 
@@ -345,6 +346,7 @@ msgstr ""
 #: blocks/src/download-library/edit.js:21
 #: blocks/src/download/edit.js:50
 #: blocks/src/download/edit.js:55
+#: blocks/src/download-library/edit.js:54
 msgid "Link"
 msgstr ""
 
@@ -353,6 +355,7 @@ msgstr ""
 #: blocks/src/download-library/edit.js:22
 #: blocks/src/download/edit.js:51
 #: blocks/src/download/edit.js:56
+#: blocks/src/download-library/edit.js:55
 msgid "Card"
 msgstr ""
 
@@ -361,16 +364,19 @@ msgstr ""
 #: blocks/src/download-library/edit.js:23
 #: blocks/src/download/edit.js:52
 #: blocks/src/download/edit.js:57
+#: blocks/src/download-library/edit.js:56
 msgid "Button"
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:28
+#: blocks/src/download-library/edit.js:61
 msgid "List"
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:29
+#: blocks/src/download-library/edit.js:62
 msgid "Grid"
 msgstr ""
 
@@ -380,6 +386,8 @@ msgstr ""
 #: blocks/src/download-library/edit.js:40
 #: blocks/src/download/edit.js:57
 #: blocks/src/download/edit.js:62
+#: blocks/src/download-library/edit.js:67
+#: blocks/src/download-library/edit.js:73
 msgid "Title"
 msgstr ""
 
@@ -388,26 +396,31 @@ msgstr ""
 #: blocks/src/download-library/edit.js:35
 #: blocks/src/download/edit.js:58
 #: blocks/src/download/edit.js:63
+#: blocks/src/download-library/edit.js:68
 msgid "Filename"
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:41
+#: blocks/src/download-library/edit.js:74
 msgid "Date"
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:46
+#: blocks/src/download-library/edit.js:79
 msgid "Ascending"
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:47
+#: blocks/src/download-library/edit.js:80
 msgid "Descending"
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:53
+#: blocks/src/download-library/edit.js:86
 msgid "Display Settings"
 msgstr ""
 
@@ -416,21 +429,25 @@ msgstr ""
 #: blocks/src/download-library/edit.js:55
 #: blocks/src/download/edit.js:96
 #: blocks/src/download/edit.js:101
+#: blocks/src/download-library/edit.js:88
 msgid "Template"
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:56
+#: blocks/src/download-library/edit.js:89
 msgid "Choose how each download is displayed."
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:62
+#: blocks/src/download-library/edit.js:95
 msgid "Layout"
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:69
+#: blocks/src/download-library/edit.js:102
 msgid "Columns"
 msgstr ""
 
@@ -439,6 +456,7 @@ msgstr ""
 #: blocks/src/download-library/edit.js:77
 #: blocks/src/download/edit.js:103
 #: blocks/src/download/edit.js:108
+#: blocks/src/download-library/edit.js:110
 msgid "Label"
 msgstr ""
 
@@ -447,31 +465,37 @@ msgstr ""
 #: blocks/src/download-library/edit.js:78
 #: blocks/src/download/edit.js:104
 #: blocks/src/download/edit.js:109
+#: blocks/src/download-library/edit.js:111
 msgid "Display the download title or the filename."
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:84
+#: blocks/src/download-library/edit.js:117
 msgid "Query Settings"
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:86
+#: blocks/src/download-library/edit.js:127
 msgid "Limit"
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:87
+#: blocks/src/download-library/edit.js:128
 msgid "Number of downloads to show. Use -1 for all."
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:94
+#: blocks/src/download-library/edit.js:135
 msgid "Order By"
 msgstr ""
 
 #: blocks/build/download-library/index.js:1
 #: blocks/src/download-library/edit.js:100
+#: blocks/src/download-library/edit.js:141
 msgid "Order"
 msgstr ""
 
@@ -667,6 +691,8 @@ msgid "Download Category"
 msgstr ""
 
 #: includes/taxonomies.php:20
+#: blocks/build/download-library/index.js:1
+#: blocks/src/download-library/edit.js:119
 msgid "Categories"
 msgstr ""
 
