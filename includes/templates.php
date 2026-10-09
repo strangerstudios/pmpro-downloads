@@ -192,6 +192,46 @@ function pmpro_downloads_get_no_access_url( $level_ids ) {
 }
 
 /**
+ * Get the message shown to non-members on a locked download listing the levels that have access.
+ *
+ * @since TBD
+ *
+ * @param string $template      The template name (link, card, button).
+ * @param array  $template_vars The template variables passed to the template.
+ * @return string The message. May contain HTML.
+ */
+function pmpro_downloads_get_levels_message( $template, $template_vars ) {
+	if ( ! empty( $template_vars['level_names'] ) ) {
+		$level_list = esc_html( pmpro_implodeToEnglish( $template_vars['level_names'], __( 'or', 'pmpro-downloads' ) ) );
+		if ( 'card' === $template ) {
+			/* translators: %s: membership level name(s) */
+			$message = sprintf( esc_html__( 'You must be a %s member to access this download.', 'pmpro-downloads' ), $level_list );
+		} else {
+			/* translators: %s: membership level name(s) */
+			$message = sprintf( esc_html__( 'Requires %s membership', 'pmpro-downloads' ), $level_list );
+		}
+	} else {
+		if ( 'card' === $template ) {
+			$message = esc_html__( 'You must be a member to access this download.', 'pmpro-downloads' );
+		} else {
+			$message = esc_html__( 'Requires membership', 'pmpro-downloads' );
+		}
+	}
+
+	/**
+	 * Filter the message shown to non-members on a locked download.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $message     The message. May contain HTML.
+	 * @param array  $level_names The names of the membership levels shown to non-members.
+	 * @param int    $post_id     The download post ID.
+	 * @param string $template    The template name (link, card, button).
+	 */
+	return apply_filters( 'pmpro_downloads_levels_message', $message, $template_vars['level_names'], $template_vars['post_id'], $template );
+}
+
+/**
  * Filter a set of membership levels down to those that should be shown
  * to non-members in locked download templates.
  *

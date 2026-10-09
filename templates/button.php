@@ -42,14 +42,7 @@ if ( $template_vars['has_access'] ) : ?>
 			</span>
 		</a>
 		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-levels' ) ); ?>">
-			<?php
-			if ( ! empty( $template_vars['level_names'] ) ) {
-				/* translators: %s: membership level name(s) */
-				printf( esc_html__( 'Requires %s membership', 'pmpro-downloads' ), esc_html( pmpro_implodeToEnglish( $template_vars['level_names'], 'or' ) ) );
-			} else {
-				esc_html_e( 'Requires membership', 'pmpro-downloads' );
-			}
-			?>
+			<?php echo wp_kses_post( pmpro_downloads_get_levels_message( 'button', $template_vars ) ); ?>
 		</div>
 	</div>
 <?php endif; ?>
