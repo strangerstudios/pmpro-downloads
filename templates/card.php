@@ -65,14 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php echo wp_kses_post( $template_vars['description'] ); ?>
 				<?php endif; ?>
 				<p class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_download-levels' ) ); ?>">
-					<?php
-					if ( ! empty( $template_vars['level_names'] ) ) {
-						/* translators: %s: membership level name(s) */
-						printf( esc_html__( 'You must be a %s member to access this download.', 'pmpro-downloads' ), esc_html( pmpro_implodeToEnglish( $template_vars['level_names'], __( 'or', 'pmpro-downloads' ) ) ) );
-					} else {
-						esc_html_e( 'You must be a member to access this download.', 'pmpro-downloads' );
-					}
-					?>
+					<?php echo wp_kses_post( pmpro_downloads_get_levels_message( 'card', $template_vars ) ); ?>
 				</p>
 				<p>
 					<a class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_btn' ) ); ?>" href="<?php echo esc_url( $template_vars['no_access_url'] ); ?>">
