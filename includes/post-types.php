@@ -197,6 +197,33 @@ function pmpro_downloads_register_meta() {
 add_action( 'init', 'pmpro_downloads_register_meta' );
 
 /**
+ * Hide bbPress count meta from the download REST API.
+ *
+ * bbPress 2.6 exposes its count meta in REST for all post types, so the block
+ * editor sends it back when saving a download. In 2.6.19 the keys are read-only,
+ * which makes the save fail. Re-registering the keys for this post type with
+ * `show_in_rest` disabled hides them for downloads only.
+ *
+ * Not needed once bbPress registers these keys only for its own post types.
+ *
+ * @since TBD
+ */
+function pmpro_downloads_hide_bbpress_meta_from_rest() {
+	foreach ( get_registered_meta_keys( 'post' ) as $meta_key => $args ) {
+		if ( 0 !== strpos( $meta_key, '_bbp_' ) || empty( $args['show_in_rest'] ) ) {
+			continue;
+		}
+
+		register_post_meta( 'pmpro_download', $meta_key, array(
+			'type'         => $args['type'],
+			'single'       => $args['single'],
+			'show_in_rest' => false,
+		) );
+	}
+}
+add_action( 'init', 'pmpro_downloads_hide_bbpress_meta_from_rest', 20 );
+
+/**
  * Register a computed REST field that returns the download URL for the current user.
  *
  * Returns an empty string if the user does not have membership access,
